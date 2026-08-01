@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!-- Google Font & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Profile Section */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+
+        /* Blog Link Card */
+        .blog-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: background 0.3s ease;
+        }
+
+        .blog-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-card h3 {
+            font-size: 1.2rem;
+        }
+
+        .blog-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Video Embed Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header / Bio -->
+        <header>
+            <h1>SUSHANT SINGH</h1>
+            <p>Human | Blogger | Student</p>
+            
+            <div class="social-links">
+                <a href="https://github.com/sush-builds" target="_blank" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/sushanttt.singh" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/sushant-singh-460290403/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@wtfvck.sushant" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </header>
+
+        <!-- Blogger Section -->
+        <section id="blog">
+            <h2>Latest Blog Posts</h2>
+            <a href="https://lifeofsushanttt.blogspot.com/" target="_blank" class="blog-card">
+                <div>
+                    <h3>Visit My Blogger Site</h3>
+                    <p>Read my latest articles, thoughts, and updates directly on my blog.</p>
+                </div>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </section>
+
+        <!-- Featured Videos Section -->
+        <section id="videos">
+            <h2>Featured YouTube Videos</h2>
+            <div class="video-grid">
+                <!-- Video 1 -->
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/V_ob7uIgeCM?si=86fekK4j2cL2aRcN" title="YouTube video player" allowfullscreen></iframe>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/xDTvA1ADA_Y?si=hjpZSonZWVv9EK-a" title="YouTube video player" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Sushant Singh. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Tawk.to Live Chat Script -->
+    <!-- REPLACE THE SCRIPT BELOW WITH YOUR OWN TAWK.TO SCRIPT EMBED -->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://tawk.to/chat/6a1bc68933b64c1c2ac907cc/1jpu7v2tn';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!-- End of Tawk.to Script -->
+
+</body>
+</html>
