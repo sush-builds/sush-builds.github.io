@@ -356,8 +356,55 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 
+
+
+     <!-- ================= CONTACT ================= -->
+<section>
+  <div class="section-label">Contact me</div>
+  <div class="glass contact-card">
+    <div class="contact-grid">
+
+      <div class="contact-intro">
+        <p>
+          Got a project, a question, or just want to say hi? Fill out the form and it'll land
+          straight in my inbox — or reach me directly below.
+        </p>
+        <div class="contact-direct">
+          <!-- Replace with your real email -->
+          <a href="mailto:mail.sushhh@gmail.com">✉️ you@example.com</a>
+        </div>
+      </div>
+
+      <div>
+        <form id="contact-form" data-endpoint="https://formspree.io/f/xeajzkel">
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="4" placeholder="What's up?" required></textarea>
+          </div>
+          <!-- Honeypot field to catch simple spam bots -->
+          <div class="field hp">
+            <label for="cf-hp">Leave blank</label>
+            <input id="cf-hp" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" id="contact-submit">Send message</button>
+          <p id="contact-status"></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
   <footer>
-    &copy; <span id="year"></span> Sushant. Built with glass and sky.
+    &copy; <span id="year"></span> Sushant Singh. 
   </footer>
 
 </main>
