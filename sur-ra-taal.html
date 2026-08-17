@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>सुर र ताल — Nepali Music Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;500;600;700&family=Mukta+Mahee:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#7a2e2e;
+    --maroon-dark:#3f1616;
+    --gold:#d9a441;
+    --gold-soft:#f0c876;
+    --indigo:#1b2a4a;
+    --indigo-deep:#0a1120;
+    --terracotta:#b5603d;
+    --snow:#f5efe6;
+    --flag-blue:#3b6e8f;
+    --flag-green:#4f7a52;
+    --flag-yellow:#d9a441;
+    --glass:rgba(245,239,230,0.07);
+    --glass-border:rgba(217,164,65,0.38);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    font-family:'Mukta',sans-serif;
+    color:var(--snow);
+    background:linear-gradient(180deg,#0a1120 0%, #14213f 38%, #2a3a5c 62%, #4a3b3a 82%, #6b3a2e 100%);
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* ---------- Heritage backdrop ---------- */
+  .sky{
+    position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+  }
+  .stars{position:absolute; inset:0;}
+  .star{
+    position:absolute; width:2px; height:2px; background:var(--snow); border-radius:50%;
+    opacity:.7; animation:twinkle 3.5s ease-in-out infinite;
+  }
+  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.9;}}
+  .moon{
+    position:absolute; top:6%; right:10%; width:70px; height:70px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #fff9ea, var(--gold-soft) 60%, transparent 75%);
+    box-shadow:0 0 60px 18px rgba(240,200,118,.35);
+  }
+  .mtn{position:absolute; bottom:0; left:0; width:100%;}
+  .ember{
+    position:absolute; bottom:-10px; width:5px; height:5px; border-radius:50%;
+    background:var(--gold-soft); opacity:.8; filter:blur(.3px);
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0); opacity:0;}
+    10%{opacity:.9;}
+    100%{transform:translateY(-100vh) translateX(20px); opacity:0;}
+  }
+  /* Prayer flags */
+  .flags{position:absolute; top:0; left:0; width:100%; display:flex; justify-content:space-around; transform:translateY(0);}
+  .flag{
+    width:34px; height:26px; margin-top:0; transform-origin:top center;
+    animation:flutter 2.6s ease-in-out infinite;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+  }
+  .flag:nth-child(5n+1){background:var(--flag-blue); animation-delay:0s;}
+  .flag:nth-child(5n+2){background:var(--snow); animation-delay:.15s;}
+  .flag:nth-child(5n+3){background:var(--maroon);animation-delay:.3s;}
+  .flag:nth-child(5n+4){background:var(--flag-green); animation-delay:.45s;}
+  .flag:nth-child(5n+5){background:var(--flag-yellow); animation-delay:.6s;}
+  @keyframes flutter{
+    0%,100%{transform:skewX(0deg) rotate(0deg);}
+    50%{transform:skewX(8deg) rotate(3deg);}
+  }
+  .flagline{position:absolute; top:12px; left:0; width:100%; height:2px; background:rgba(245,239,230,.35);}
+
+  /* ---------- Layout ---------- */
+  .wrap{position:relative; z-index:2; max-width:1080px; margin:0 auto; padding:70px 22px 60px;}
+  header{text-align:center; margin-bottom:34px;}
+  .eyebrow{
+    letter-spacing:.35em; text-transform:uppercase; font-size:11px; color:var(--gold-soft);
+    font-family:'Mukta Mahee',sans-serif; font-weight:600; margin-bottom:10px;
+  }
+  h1{
+    font-family:'Yatra One',cursive; font-weight:400;
+    font-size:clamp(38px,6vw,64px); margin:0 0 6px; color:var(--snow);
+    text-shadow:0 2px 24px rgba(217,164,65,.35);
+  }
+  .sub{color:rgba(245,239,230,.72); font-size:15px; max-width:520px; margin:0 auto;}
+
+  main{display:grid; grid-template-columns:1fr; gap:28px;}
+  @media(min-width:860px){ main{grid-template-columns: 1.05fr .95fr;} }
+
+  .card{
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:22px; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    padding:26px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.35);
+  }
+  .corner{position:absolute; width:22px; height:22px; border:2px solid var(--gold); opacity:.75;}
+  .corner.tl{top:10px; left:10px; border-right:none; border-bottom:none; border-radius:6px 0 0 0;}
+  .corner.tr{top:10px; right:10px; border-left:none; border-bottom:none; border-radius:0 6px 0 0;}
+  .corner.bl{bottom:10px; left:10px; border-right:none; border-top:none; border-radius:0 0 0 6px;}
+  .corner.br{bottom:10px; right:10px; border-left:none; border-top:none; border-radius:0 0 6px 0;}
+
+  /* ---------- Player card ---------- */
+  .disc-wrap{display:flex; justify-content:center; margin-bottom:18px;}
+  .disc-frame{
+    width:220px; height:220px; border-radius:50%; padding:10px;
+    background:conic-gradient(from 0deg, var(--gold), var(--maroon), var(--gold-soft), var(--maroon-dark), var(--gold));
+    box-shadow:0 0 0 3px rgba(217,164,65,.25), 0 18px 40px rgba(0,0,0,.45);
+  }
+  .disc-inner{
+    width:100%; height:100%; border-radius:50%; overflow:hidden; position:relative;
+    background:#000; border:4px solid var(--indigo-deep);
+    animation:spin 14s linear infinite; animation-play-state:paused;
+  }
+  .disc-inner.playing{animation-play-state:running;}
+  .disc-inner iframe{
+    position:absolute; top:50%; left:50%; width:340%; height:340%;
+    transform:translate(-50%,-50%); pointer-events:none; border:0;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .disc-hole{
+    position:absolute; top:50%; left:50%; width:16px; height:16px; margin:-8px 0 0 -8px;
+    background:var(--snow); border-radius:50%; z-index:3; box-shadow:0 0 0 3px var(--indigo-deep);
+  }
+
+  .track-title{text-align:center; font-size:20px; font-weight:600; margin:4px 0 2px; font-family:'Mukta Mahee',sans-serif;}
+  .track-artist{text-align:center; font-size:13px; color:var(--gold-soft); margin-bottom:18px;}
+
+  .progress-row{display:flex; align-items:center; gap:10px; font-size:11px; color:rgba(245,239,230,.7); margin-bottom:6px;}
+  input[type=range]{
+    -webkit-appearance:none; appearance:none; width:100%; height:5px; border-radius:4px;
+    background:linear-gradient(90deg, var(--gold) var(--pct,0%), rgba(245,239,230,.18) var(--pct,0%));
+    outline:none; cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
+    background:var(--gold-soft); border:2px solid var(--maroon-dark); cursor:pointer;
+    box-shadow:0 0 8px rgba(217,164,65,.7);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:14px; height:14px; border-radius:50%; background:var(--gold-soft);
+    border:2px solid var(--maroon-dark); cursor:pointer;
+  }
+
+  .controls-row{display:flex; align-items:center; justify-content:center; gap:14px; margin:16px 0 10px;}
+  .ctrl-btn{
+    background:transparent; border:1px solid var(--glass-border); color:var(--snow);
+    width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .ctrl-btn:hover{background:rgba(217,164,65,.15); border-color:var(--gold); transform:translateY(-1px);}
+  .ctrl-btn:focus-visible{outline:2px solid var(--gold-soft); outline-offset:2px;}
+  .ctrl-btn.active{background:var(--gold); border-color:var(--gold); color:var(--indigo-deep);}
+  .ctrl-btn.big{width:56px; height:56px; background:var(--maroon); border-color:var(--gold);}
+  .ctrl-btn.big:hover{background:var(--terracotta);}
+  .ctrl-btn svg{width:18px; height:18px;}
+  .ctrl-btn.big svg{width:22px; height:22px;}
+
+  .volume-row{display:flex; align-items:center; gap:10px; margin-top:8px;}
+  .volume-row .ctrl-btn{width:34px; height:34px; flex:0 0 auto;}
+
+  /* ---------- Playlist card ---------- */
+  .playlist-title{
+    font-family:'Mukta Mahee',sans-serif; font-weight:700; font-size:14px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--gold-soft); margin:2px 0 16px;
+  }
+  .track-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; max-height:460px; overflow-y:auto;}
+  .track-list::-webkit-scrollbar{width:6px;}
+  .track-list::-webkit-scrollbar-thumb{background:var(--gold); border-radius:4px;}
+  .track-item{
+    display:flex; align-items:center; gap:12px; padding:8px; border-radius:14px;
+    cursor:pointer; border:1px solid transparent; transition:background .15s ease, border-color .15s ease;
+  }
+  .track-item:hover{background:rgba(217,164,65,.1);}
+  .track-item.active{background:rgba(217,164,65,.16); border-color:var(--glass-border);}
+  .track-item img{width:48px; height:48px; border-radius:10px; object-fit:cover; flex:0 0 auto; border:1px solid rgba(217,164,65,.4);}
+  .track-item .meta{flex:1; min-width:0;}
+  .track-item .meta .t{font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .track-item .meta .a{font-size:12px; color:rgba(245,239,230,.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .eq{display:flex; align-items:flex-end; gap:2px; width:16px; height:16px; flex:0 0 auto;}
+  .eq span{width:3px; background:var(--gold); animation:eq 0.9s ease-in-out infinite; border-radius:1px;}
+  .eq span:nth-child(1){height:40%; animation-delay:0s;}
+  .eq span:nth-child(2){height:100%; animation-delay:.2s;}
+  .eq span:nth-child(3){height:60%; animation-delay:.4s;}
+  @keyframes eq{0%,100%{transform:scaleY(.4);}50%{transform:scaleY(1);}}
+
+  /* ---------- Live badge ---------- */
+  .live-badge{
+    position:fixed; top:18px; right:18px; z-index:5;
+    display:flex; align-items:center; gap:8px;
+    background:rgba(10,17,32,.55); border:1px solid var(--glass-border);
+    backdrop-filter:blur(10px); padding:8px 14px; border-radius:999px;
+    font-size:12.5px; color:var(--snow);
+  }
+  .dot{width:8px; height:8px; border-radius:50%; background:#5fd97a; box-shadow:0 0 8px #5fd97a; animation:pulse 1.6s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);}50%{opacity:.5; transform:scale(1.3);}}
+
+  footer{text-align:center; margin-top:46px; font-size:12px; color:rgba(245,239,230,.55);}
+  footer a{color:var(--gold-soft);}
+
+  @media(prefers-reduced-motion:reduce){
+    .flag, .ember, .star, .disc-inner, .eq span, .dot{animation:none !important;}
+  }
+  @media(max-width:480px){
+    .live-badge{top:auto; bottom:14px; right:14px; font-size:11px; padding:6px 10px;}
+    .wrap{padding-top:56px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="flagline"></div>
+  <div class="flags" id="flags"></div>
+
+  <svg class="mtn" viewBox="0 0 1440 420" preserveAspectRatio="none" style="height:46vh;">
+    <polygon points="0,420 0,220 180,90 340,200 520,60 700,210 860,120 1040,230 1220,100 1440,220 1440,420" fill="#14213f"/>
+    <polygon points="0,420 0,280 220,170 400,260 600,150 800,270 1000,180 1200,270 1440,190 1440,420" fill="#1b2a4a" opacity="0.9"/>
+  </svg>
+
+  <svg viewBox="0 0 1440 260" preserveAspectRatio="none" style="position:absolute; bottom:0; left:0; width:100%; height:30vh;">
+    <!-- pagoda skyline -->
+    <g fill="#2a1414">
+      <rect x="60" y="150" width="70" height="90"/>
+      <polygon points="35,150 165,150 130,110 70,110"/>
+      <polygon points="55,112 145,112 122,84 78,84"/>
+      <polygon points="72,86 128,86 112,64 88,64"/>
+      <circle cx="100" cy="55" r="6"/>
+
+      <rect x="1250" y="140" width="80" height="100"/>
+      <polygon points="1220,140 1360,140 1320,96 1260,96"/>
+      <polygon points="1244,98 1336,98 1310,66 1270,66"/>
+      <polygon points="1264,68 1316,68 1298,44 1282,44"/>
+      <circle cx="1290" cy="34" r="6"/>
+    </g>
+    <!-- stupa -->
+    <g transform="translate(680,60)" fill="#241010">
+      <polygon points="0,200 0,120 160,120 160,200"/>
+      <ellipse cx="80" cy="120" rx="80" ry="26"/>
+      <rect x="55" y="40" width="50" height="80"/>
+      <polygon points="80,-10 130,40 30,40"/>
+      <circle cx="65" cy="70" r="4" fill="#d9a441"/>
+      <circle cx="95" cy="70" r="4" fill="#d9a441"/>
+      <polygon points="80,-10 80,-40 74,-40 74,-14" fill="#d9a441"/>
+    </g>
+  </svg>
+
+  <div id="embers"></div>
+</div>
+
+<div class="live-badge">
+  <span class="dot"></span>
+  <span id="liveCount">—</span>&nbsp;people listening now
+</div>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Kathmandu · Nepal</div>
+    <h1>सुर र ताल</h1>
+    <p class="sub">A little brass-and-butter-lamp corner of the internet for popular Nepali songs — press play and let the hills hum.</p>
+  </header>
+
+  <main>
+    <section class="card" aria-label="Now playing">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+
+      <div class="disc-wrap">
+        <div class="disc-frame">
+          <div class="disc-inner" id="discInner">
+            <div id="ytplayer"></div>
+            <div class="disc-hole"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-title" id="trackTitle">Loading…</div>
+      <div class="track-artist" id="trackArtist">&nbsp;</div>
+
+      <div class="progress-row">
+        <span id="curTime">0:00</span>
+        <input type="range" id="seek" min="0" max="100" value="0" aria-label="Seek">
+        <span id="durTime">0:00</span>
+      </div>
+
+      <div class="controls-row">
+        <button class="ctrl-btn" id="shuffleBtn" aria-label="Shuffle" title="Shuffle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+        </button>
+        <button class="ctrl-btn" id="prevBtn" aria-label="Previous track" title="Previous">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM19 6L9 12l10 6z"/></svg>
+        </button>
+        <button class="ctrl-btn big" id="playBtn" aria-label="Play" title="Play/Pause">
+          <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="nextBtn" aria-label="Next track" title="Next">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM5 6l10 6L5 18z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="repeatBtn" aria-label="Repeat" title="Repeat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        </button>
+      </div>
+
+      <div class="volume-row">
+        <button class="ctrl-btn" id="muteBtn" aria-label="Mute" title="Mute">
+          <svg id="volIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 8a5 5 0 010 8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        </button>
+        <input type="range" id="volume" min="0" max="100" value="70" aria-label="Volume">
+      </div>
+    </section>
+
+    <section class="card" aria-label="Playlist">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="playlist-title">Playlist · लोकप्रिय गीतहरू</div>
+      <ul class="track-list" id="trackList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    Videos streamed from official YouTube uploads · a hand-built player, not an official app · made in Kathmandu 🇳🇵
+  </footer>
+</div>
+
+<script>
+/* ---------------- Heritage backdrop generation ---------------- */
+(function(){
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<70;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*55+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    starsEl.appendChild(s);
+  }
+  const flagsEl = document.getElementById('flags');
+  for(let i=0;i<26;i++){
+    const f = document.createElement('div');
+    f.className='flag';
+    f.style.animationDelay = (i*0.08)+'s';
+    flagsEl.appendChild(f);
+  }
+  const embersEl = document.getElementById('embers');
+  for(let i=0;i<18;i++){
+    const e = document.createElement('div');
+    e.className='ember';
+    e.style.left = Math.random()*100+'%';
+    e.style.animationDuration = (6+Math.random()*8)+'s';
+    e.style.animationDelay = (Math.random()*10)+'s';
+    embersEl.appendChild(e);
+  }
+})();
+
+/* ---------------- Simulated "live now" counter ----------------
+   This is a static, single-file page with no backend, so there is
+   no real visitor tracking here — the number below drifts on its
+   own to give the room a bit of life. Wire it to a real service
+   (e.g. a small websocket/Firebase presence channel) for genuine
+   live counts. */
+(function(){
+  let count = 90 + Math.floor(Math.random()*60);
+  const el = document.getElementById('liveCount');
+  el.textContent = count;
+  setInterval(()=>{
+    count += Math.floor(Math.random()*9)-4;
+    count = Math.max(38, Math.min(260, count));
+    el.textContent = count;
+  }, 2600);
+})();
+
+/* ---------------- Playlist data (real official uploads) ---------------- */
+const PLAYLIST = [
+  { id:'ucOBod97Q_Y', title:'Phutki Jaaney Jovan', artist:'Sajjan Raj Vaidya' },
+  { id:'0UMpjatTsL0', title:'Suskera',             artist:'Sajjan Raj Vaidya' },
+  { id:'WUfeSOe1PJ4', title:'Behuli',               artist:'Sajjan Raj Vaidya' },
+  { id:'Y3bDy6FTgMY', title:'Parkhaai',             artist:'Sajjan Raj Vaidya' },
+  { id:'17l66cbys_M', title:'Suna Kaanchi',         artist:'Sajjan Raj Vaidya' },
+  { id:'tELlvq18e4g', title:'Wildfire (Dadhelo)',   artist:'Bipul Chettri' },
+  { id:'H7ZODxg0yyY', title:'Khai',                 artist:'Bartika Eam Rai' },
+  { id:'-D9EzkmEdW0', title:'Bimbaakash',           artist:'Bartika Eam Rai' }
+];
+
+/* ---------------- Player state ---------------- */
+let player, current = 0, isPlaying = false, isMuted = false, shuffleOn = false;
+let repeatMode = 0; // 0 off, 1 all, 2 one
+let order = PLAYLIST.map((_,i)=>i);
+let seekDragging = false;
+
+function fmt(t){
+  t = Math.max(0, Math.floor(t||0));
+  const m = Math.floor(t/60), s = t%60;
+  return m+':'+String(s).padStart(2,'0');
+}
+
+function renderList(){
+  const ul = document.getElementById('trackList');
+  ul.innerHTML = '';
+  PLAYLIST.forEach((track, i)=>{
+    const li = document.createElement('li');
+    li.className = 'track-item' + (i===current ? ' active' : '');
+    li.setAttribute('role','button');
+    li.tabIndex = 0;
+    li.innerHTML = `
+      <img src="https://img.youtube.com/vi/${track.id}/mqdefault.jpg" alt="" loading="lazy">
+      <div class="meta">
+        <div class="t">${track.title}</div>
+        <div class="a">${track.artist}</div>
+      </div>
+      ${i===current ? '<div class="eq"><span></span><span></span><span></span></div>' : ''}
+    `;
+    li.addEventListener('click', ()=> playIndex(i));
+    li.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); playIndex(i);} });
+    ul.appendChild(li);
+  });
+}
+
+function updateTrackInfo(){
+  const t = PLAYLIST[current];
+  document.getElementById('trackTitle').textContent = t.title;
+  document.getElementById('trackArtist').textContent = t.artist;
+  document.title = t.title + ' · सुर र ताल';
+}
+
+function setPlayingUI(playing){
+  isPlaying = playing;
+  document.getElementById('discInner').classList.toggle('playing', playing);
+  document.getElementById('playIcon').innerHTML = playing
+    ? '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>'
+    : '<path d="M8 5v14l11-7z"/>';
+  document.getElementById('playBtn').setAttribute('aria-label', playing ? 'Pause' : 'Play');
+}
+
+function playIndex(i){
+  current = i;
+  renderList();
+  updateTrackInfo();
+  if(player && player.loadVideoById){
+    player.loadVideoById(PLAYLIST[i].id);
+    player.playVideo();
+  }
+}
+
+function stepTrack(dir){
+  const pos = order.indexOf(current);
+  let nextPos = pos + dir;
+  if(nextPos >= order.length) nextPos = 0;
+  if(nextPos < 0) nextPos = order.length - 1;
+  playIndex(order[nextPos]);
+}
+
+function shuffleOrder(){
+  order = PLAYLIST.map((_,i)=>i);
+  for(let i=order.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [order[i],order[j]] = [order[j],order[i]];
+  }
+}
+
+/* ---------------- YouTube IFrame API ---------------- */
+function onYouTubeIframeAPIReady(){
+  player = new YT.Player('ytplayer', {
+    videoId: PLAYLIST[current].id,
+    playerVars:{ autoplay:0, controls:0, modestbranding:1, rel:0, disablekb:1, iv_load_policy:3, fs:0, playsinline:1 },
+    events:{
+      onReady:(e)=>{ e.target.setVolume(70); updateTrackInfo(); renderList(); },
+      onStateChange:onPlayerStateChange
+    }
+  });
+}
+let tag = document.createElement('script');
+tag.src = 'https://www.youtube.com/iframe_api';
+document.head.appendChild(tag);
+
+function onPlayerStateChange(e){
+  if(e.data === YT.PlayerState.PLAYING){ setPlayingUI(true); }
+  if(e.data === YT.PlayerState.PAUSED){ setPlayingUI(false); }
+  if(e.data === YT.PlayerState.ENDED){
+    if(repeatMode === 2){ player.seekTo(0); player.playVideo(); }
+    else if(repeatMode === 1){ stepTrack(1); }
+    else {
+      const pos = order.indexOf(current);
+      if(pos < order.length-1){ stepTrack(1); } else { setPlayingUI(false); }
+    }
+  }
+}
+
+/* ---------------- Controls wiring ---------------- */
+document.getElementById('playBtn').addEventListener('click', ()=>{
+  if(!player) return;
+  if(isPlaying){ player.pauseVideo(); } else { player.playVideo(); }
+});
+document.getElementById('prevBtn').addEventListener('click', ()=> stepTrack(-1));
+document.getElementById('nextBtn').addEventListener('click', ()=> stepTrack(1));
+
+document.getElementById('shuffleBtn').addEventListener('click', function(){
+  shuffleOn = !shuffleOn;
+  this.classList.toggle('active', shuffleOn);
+  if(shuffleOn){ shuffleOrder(); } else { order = PLAYLIST.map((_,i)=>i); }
+});
+
+document.getElementById('repeatBtn').addEventListener('click', function(){
+  repeatMode = (repeatMode + 1) % 3;
+  this.classList.toggle('active', repeatMode !== 0);
+  this.title = repeatMode===0 ? 'Repeat off' : repeatMode===1 ? 'Repeat all' : 'Repeat one';
+  this.style.opacity = repeatMode===2 ? '0.85' : '1';
+});
+
+const muteBtn = document.getElementById('muteBtn');
+const volEl = document.getElementById('volume');
+muteBtn.addEventListener('click', ()=>{
+  if(!player) return;
+  isMuted = !isMuted;
+  if(isMuted){ player.mute(); } else { player.unMute(); }
+  document.getElementById('volIcon').innerHTML = isMuted
+    ? '<path d="M3 10v4h4l5 5V5L7 10H3z"/><line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="2"/><line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="2"/>'
+    : '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 8a5 5 0 010 8" stroke="currentColor" stroke-width="2" fill="none"/>';
+});
+volEl.addEventListener('input', function(){
+  if(player) player.setVolume(this.value);
+  this.style.setProperty('--pct', this.value+'%');
+  if(this.value == 0 && !isMuted){ isMuted = true; player && player.mute(); }
+  if(this.value > 0 && isMuted){ isMuted = false; player && player.unMute(); }
+});
+volEl.style.setProperty('--pct','70%');
+
+const seekEl = document.getElementById('seek');
+seekEl.addEventListener('mousedown', ()=> seekDragging = true);
+seekEl.addEventListener('touchstart', ()=> seekDragging = true);
+seekEl.addEventListener('change', function(){
+  if(player && player.getDuration){
+    const dur = player.getDuration();
+    player.seekTo(dur * (this.value/100), true);
+  }
+  seekDragging = false;
+});
+seekEl.addEventListener('input', function(){ this.style.setProperty('--pct', this.value+'%'); });
+
+setInterval(()=>{
+  if(!player || !player.getCurrentTime || seekDragging) return;
+  const cur = player.getCurrentTime() || 0;
+  const dur = player.getDuration() || 0;
+  document.getElementById('curTime').textContent = fmt(cur);
+  document.getElementById('durTime').textContent = fmt(dur);
+  const pct = dur ? (cur/dur)*100 : 0;
+  seekEl.value = pct;
+  seekEl.style.setProperty('--pct', pct+'%');
+}, 500);
+
+/* keyboard shortcut: space to play/pause when not typing in a control */
+document.addEventListener('keydown', (e)=>{
+  if(e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'BUTTON'){
+    e.preventDefault();
+    document.getElementById('playBtn').click();
+  }
+});
+
+renderList();
+</script>
+</body>
+</html>
