@@ -1,662 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sushant — Portfolio</title>
-
-<!-- ============================================================
-     FAVICON
-     Replace the href below with your own icon file once chosen.
-     e.g. <link rel="icon" type="image/png" href="favicon.png">
-     For now this uses a simple emoji-based favicon so the tab
-     isn't blank.
-============================================================= -->
-<link rel="icon" type="image" href="photo.jpg">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-     <main style="padding-top: 80px;">
-
-     <!-- ================= FIXED TOP GLASS BANNER ================= -->
-<header style="
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 10vw);
-  max-width: 1000px;
-  height: 60px;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 999px;
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: 0 8px 32px rgba(31, 84, 120, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  pointer-events: auto;
-">
-  <!-- Brand Name -->
-  <span style="
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 1.35rem;
-    letter-spacing: 0.05em;
-    color: var(--accent-deep);
-    text-shadow: 0 2px 10px rgba(46, 134, 193, 0.15);
-  ">SUSHANT.</span>
-
-  <!-- Glowing Live Status Dot -->
-  <div style="display: flex; align-items: center; gap: 8px;">
-    <span style="
-      width: 10px;
-      height: 10px;
-      background-color: #2ecc71;
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 10px #2ecc71, 0 0 4px #2ecc71;
-    "></span>
-    <span style="
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    ">Portfolio</span>
-  </div>
-</header>
-     
-<style>
-  :root{
-    --sky-top:#bfe4fb;
-    --sky-mid:#dff1fc;
-    --sky-bottom:#f3f9fd;
-    --glass-fill: rgba(255,255,255,0.28);
-    --glass-fill-strong: rgba(255,255,255,0.45);
-    --glass-border: rgba(255,255,255,0.55);
-    --accent:#2e86c1;
-    --accent-deep:#1b5f8c;
-    --ink:#173a4d;
-    --ink-soft:#3f6579;
-    --shadow: 0 8px 32px rgba(31,84,120,0.18);
-    --radius-lg: 28px;
-    --radius-md: 20px;
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-
-  html{scroll-behavior:smooth;}
-
-  body{
-    font-family:'Inter', sans-serif;
-    color:var(--ink);
-    min-height:100vh;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.6), transparent 40%),
-      radial-gradient(circle at 85% 10%, rgba(255,255,255,0.5), transparent 45%),
-      linear-gradient(160deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
-    overflow-x:hidden;
-    position:relative;
-  }
-
-  /* ---------- Ambient floating glass bubbles ---------- */
-  .bubble{
-    position:fixed;
-    border-radius:50%;
-    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.05) 70%);
-    filter:blur(1px);
-    pointer-events:none;
-    z-index:0;
-    animation:drift 18s ease-in-out infinite;
-  }
-  .bubble.b1{width:220px; height:220px; top:8%; left:-60px; animation-duration:22s;}
-  .bubble.b2{width:140px; height:140px; top:60%; right:-40px; animation-duration:16s; animation-delay:-4s;}
-  .bubble.b3{width:90px; height:90px; top:30%; right:12%; animation-duration:14s; animation-delay:-8s;}
-  .bubble.b4{width:60px; height:60px; bottom:8%; left:8%; animation-duration:12s; animation-delay:-2s;}
-
-  @keyframes drift{
-    0%, 100%{ transform:translateY(0) translateX(0); }
-    50%{ transform:translateY(-30px) translateX(20px); }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .bubble{ animation:none; }
-    html{ scroll-behavior:auto; }
-  }
-
-  main{
-    position:relative;
-    z-index:1;
-    max-width:1000px;
-    margin:0 auto;
-    padding:6vh 5vw 10vh;
-    display:flex;
-    flex-direction:column;
-    gap:28px;
-  }
-
-  /* ---------- Glass card base ---------- */
-  .glass{
-    background:var(--glass-fill);
-    border:1px solid var(--glass-border);
-    border-radius:var(--radius-lg);
-    backdrop-filter:blur(18px) saturate(140%);
-    -webkit-backdrop-filter:blur(18px) saturate(140%);
-    box-shadow:var(--shadow);
-    position:relative;
-    overflow:hidden;
-  }
-  .glass::before{
-    content:"";
-    position:absolute;
-    top:0; left:0; right:0;
-    height:1px;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    text-align:center;
-    padding:8vh 6vw;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:14px;
-  }
-
-  .avatar-ring{
-    width:112px; height:112px;
-    border-radius:50%;
-    background:var(--glass-fill-strong);
-    border:1px solid var(--glass-border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:44px;
-    margin-bottom:6px;
-    overflow:hidden;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 6px 20px rgba(46,134,193,0.25);
-  }
-
-  .avatar-ring img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-  }
-
-  .hero h1{
-    font-family:'Outfit', sans-serif;
-    font-weight:800;
-    font-size:clamp(2.4rem, 6vw, 4rem);
-    letter-spacing:-0.02em;
-    color:var(--ink);
-  }
-
-  .hero .tag{
-    font-family:'Outfit', sans-serif;
-    font-weight:500;
-    font-size:clamp(1rem, 2.4vw, 1.25rem);
-    color:var(--accent-deep);
-    background:var(--glass-fill-strong);
-    border:1px solid var(--glass-border);
-    padding:8px 22px;
-    border-radius:999px;
-    display:inline-block;
-  }
-
-  .hero p.bio{
-    max-width:520px;
-    color:var(--ink-soft);
-    font-size:1rem;
-    line-height:1.6;
-    margin-top:4px;
-  }
-
-  /* ---------- Section headers ---------- */
-  .section-label{
-    font-family:'Outfit', sans-serif;
-    font-weight:600;
-    font-size:0.85rem;
-    text-transform:uppercase;
-    letter-spacing:0.12em;
-    color:var(--accent-deep);
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .section-label::after{
-    content:"";
-    flex:1;
-    height:1px;
-    background:linear-gradient(90deg, var(--glass-border), transparent);
-  }
-
-  /* ---------- Social bento grid ---------- */
-  .social-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
-    gap:16px;
-  }
-
-  .social-card{
-    padding:26px 16px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    color:var(--ink);
-    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  }
-  .social-card:hover, .social-card:focus-visible{
-    transform:translateY(-6px);
-    background:var(--glass-fill-strong);
-    box-shadow:0 14px 34px rgba(31,84,120,0.25);
-  }
-  .social-card:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-
-  .social-card svg{ width:30px; height:30px; fill:var(--accent-deep); }
-  .social-card span{ font-family:'Outfit', sans-serif; font-weight:600; font-size:0.9rem; }
-
-  /* ---------- Embed cards ---------- */
-  .embed-card{ padding:22px; }
-
-  .embed-card iframe{
-    width:100%;
-    border:none;
-    border-radius:var(--radius-md);
-    display:block;
-    background:rgba(255,255,255,0.5);
-  }
-
-  .blog-frame{ height:800px; }
-
-  .video-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-    gap:16px;
-  }
-  .video-frame-wrap{
-    position:relative;
-    width:100%;
-    padding-top:56.25%; /* 16:9 */
-    border-radius:var(--radius-md);
-    overflow:hidden;
-    box-shadow:0 6px 18px rgba(31,84,120,0.15);
-  }
-  .video-frame-wrap iframe{
-    position:absolute; top:0; left:0; width:100%; height:100%; border:none;
-  }
-
-  footer{
-    text-align:center;
-    color:var(--ink-soft);
-    font-size:0.85rem;
-    padding-top:10px;
-  }
-
-  @media (max-width:600px){
-    main{ padding:5vh 5vw 8vh; gap:20px; }
-    .hero{ padding:6vh 6vw; }
-    .blog-frame{ height:560px; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushant — Portfolio</title>
+  <link rel="icon" type="image/jpeg" href="photo.jpg">
 </head>
 <body>
 
-<div class="bubble b1"></div>
-<div class="bubble b2"></div>
-<div class="bubble b3"></div>
-<div class="bubble b4"></div>
+  <!-- Header -->
+  <header>
+    <h2>SUSHANT.</h2>
+    <p>Portfolio (Live)</p>
+  </header>
 
-<main>
-
-  <!-- ================= HERO ================= -->
-  <section class="glass hero">
-    <div class="avatar-ring">
-      <!-- Save your photo as "photo.jpg" in the same folder as this HTML file
-           (or update the src below to match whatever filename you use) -->
-      <img src="photo.jpg" alt="Sushant">
-    </div>
-    <h1>Sushant Singh</h1>
-    <span class="tag">HUMAN :  STUDENT   </span>
-    <p class="bio">
-        Kathmandu, Nepal <br>
-
-         <!-- ================= EMAIL CONTACT ================= -->
-<section style="margin-top: 28px;">
-  <div class="section-label">Get in touch</div>
-  <style>
-    .email-card {
-      padding: 26px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      text-decoration: none;
-      color: var(--ink);
-      position: relative;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .email-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: var(--radius-lg);
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      background: radial-gradient(circle at center, rgba(66, 133, 244, 0.15), rgba(234, 67, 53, 0.15), rgba(251, 188, 5, 0.15), rgba(52, 168, 83, 0.15));
-      pointer-events: none;
-    }
-    .email-card:hover, .email-card:focus-visible {
-      transform: translateY(-6px);
-      border-color: rgba(66, 133, 244, 0.6);
-      box-shadow: 0 14px 34px rgba(66, 133, 244, 0.25), 0 0 20px rgba(234, 67, 53, 0.2), 0 0 20px rgba(52, 168, 83, 0.2);
-    }
-    .email-card:hover::after {
-      opacity: 1;
-    }
-    .email-card svg path.g-blue { fill: #4285F4; }
-    .email-card svg path.g-red { fill: #EA4335; }
-    .email-card svg path.g-yellow { fill: #FBBC05; }
-    .email-card svg path.g-green { fill: #34A853; }
-    .email-address {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      letter-spacing: -0.01em;
-    }
-  </style>
-
-  <!-- Replace 'your.email@gmail.com' with your actual email address -->
-  <a class="glass email-card" href="mailto:admin@sushantsingh.com.np">
-    <svg width="32" height="32" viewBox="0 0 24 24">
-      <path class="g-blue" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-      <path class="g-red" d="M12 13L4 8v10h16V8l-8 5z" opacity="0.3"/>
-      <path class="g-yellow" d="M4 6l8 5 8-5" opacity="0.2"/>
-      <path class="g-green" d="M20 18H4V8l8 5 8-5v10z" opacity="0.1"/>
-    </svg>
-    <span class="email-address">Mail</span>
-  </a>
-</section>
-    </p>
-  </section>
-
-  <!-- ================= SOCIAL LINKS ================= -->
-  <section>
-    <div class="section-label">Find me around the web</div>
-    <div class="glass" style="padding:20px;">
-      <div class="social-grid">
-
-        <a class="social-card" href="https://github.com/sush-builds" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.16.69-3.83-1.34-3.83-1.34-.52-1.32-1.26-1.67-1.26-1.67-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.74 2.65 1.24 3.3.95.1-.73.4-1.24.72-1.53-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16a10.9 10.9 0 0 1 5.72 0c2.18-1.47 3.14-1.16 3.14-1.16.62 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .3.2.66.79.55A11.26 11.26 0 0 0 23.25 11.75C23.25 5.48 18.27.5 12 .5Z"/></svg>
-          <span>GitHub</span>
-        </a>
-
-        <a class="social-card" href="https://youtube.com/@wtfvck.sushant" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.95-1.91-.95-2.37-1.01C16.9 2.5 12 2.5 12 2.5h-.01s-4.9 0-8.19.33c-.46.06-1.47.06-2.37 1.01C.72 4.56.5 6.2.5 6.2S.26 8.13.26 10.05v1.89c0 1.93.24 3.85.24 3.85s.23 1.64.94 2.36c.9.96 2.08.93 2.6 1.03 1.9.18 8.06.33 8.06.33s4.9-.01 8.19-.33c.46-.06 1.47-.06 2.37-1.02.71-.72.94-2.36.94-2.36s.24-1.93.24-3.85v-1.89c0-1.93-.24-3.85-.24-3.85ZM9.75 14.98V7.62l6.5 3.69-6.5 3.67Z"/></svg>
-          <span>YouTube</span>
-        </a>
-
-        <a class="social-card" href="https://instagram.com/sushanttt.singh" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.46A4.38 4.38 0 1 0 12 16.38 4.38 4.38 0 0 0 12 7.62Zm0 7.22a2.84 2.84 0 1 1 0-5.68 2.84 2.84 0 0 1 0 5.68Zm4.55-7.4a1.02 1.02 0 1 1 0-2.04 1.02 1.02 0 0 1 0 2.04Z"/></svg>
-          <span>Instagram</span>
-        </a>
-
-        <a class="social-card" href="https://www.linkedin.com/in/sushant-singh-460290403/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
-          <span>LinkedIn</span>
-        </a>
-
-        <a class="social-card" href="https://facebook.com/sushanttt.singh" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M23 12.06C23 5.94 18.07 1 12 1S1 5.94 1 12.06c0 5.53 4.05 10.11 9.34 10.94v-7.74H7.9v-3.2h2.44V9.85c0-2.42 1.44-3.76 3.64-3.76 1.06 0 2.16.19 2.16.19v2.38h-1.22c-1.2 0-1.57.75-1.57 1.52v1.82h2.68l-.43 3.2h-2.25v7.74C18.95 22.17 23 17.59 23 12.06Z"/></svg>
-          <span>Facebook</span>
-        </a>
-
-        <a class="social-card" href="https://tiktok.com/@user200806260" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M16.6 2h-3.3v14.2a2.9 2.9 0 1 1-2.06-2.78V9.98a6.1 6.1 0 1 0 5.36 6.06V8.62a7.5 7.5 0 0 0 4.4 1.42V6.7a4.2 4.2 0 0 1-4.4-4.2Z"/></svg>
-          <span>TikTok</span>
-        </a>
-
+  <main>
+    <!-- HERO SECTION -->
+    <section>
+      <div>
+        <img src="photo.jpg" alt="Sushant" width="100" height="100">
       </div>
-    </div>
-  </section>
+      <h1>Sushant Singh</h1>
+      <p><strong>HUMAN : STUDENT</strong></p>
+      <p>Kathmandu, Nepal</p>
 
-  <!-- ================= BLOGGER EMBED ================= -->
-  <section>
-    <div class="section-label">From the blog</div>
-    <div class="glass embed-card">
-      <iframe class="blog-frame"
-        src="https://lifeofsushanttt.blogspot.com/"
-        title="My Blogger site" loading="lazy">
-      </iframe>
-    </div>
-  </section>
+      <!-- Email Link -->
+      <a href="mailto:admin@sushantsingh.com.np">Get in touch via Email</a>
+    </section>
 
-     <!-- ================= PROJECTS SECTION ================= -->
-<section style="margin-top: 28px;">
-  <div class="section-label">Featured Projects</div>
-  
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+    <hr>
 
-    <!-- Project Card 1: FileCode -->
-    <div class="glass" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-      
-      <!-- Header Bar -->
-      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <!-- Glowing Green Icon -->
-          <span style="
-            width: 12px; 
-            height: 12px; 
-            background-color: #2ecc71; 
-            border-radius: 50%; 
-            display: inline-block; 
-            box-shadow: 0 0 10px #2ecc71, 0 0 4px #2ecc71;
-            flex-shrink: 0;
-          "></span>
-          
-          <h3 style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--ink);">
-            FileCode
-          </h3>
-        </div>
+    <!-- SOCIAL LINKS -->
+    <section>
+      <h3>Find me around the web</h3>
+      <ul>
+        <li><a href="https://github.com/sush-builds" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://youtube.com/@wtfvck.sushant" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://instagram.com/sushanttt.singh" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/in/sushant-singh-460290403/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://facebook.com/sushanttt.singh" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://tiktok.com/@user200806260" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </section>
 
-        <!-- Visit Live Button -->
-        <a 
-          href="https://filecode.netlify.app/" 
-          target="_blank" 
-          rel="noopener" 
-          style="
-            display: inline-flex; 
-            align-items: center; 
-            gap: 6px; 
-            padding: 8px 16px; 
-            background: var(--glass-fill-strong); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 999px; 
-            color: var(--accent-deep); 
-            text-decoration: none; 
-            font-family: 'Outfit', sans-serif; 
-            font-weight: 600; 
-            font-size: 0.85rem;
-          "
-        >
-          <span>Visit Live</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <line x1="10" y1="14" x2="21" y2="3"></line>
-          </svg>
-        </a>
+    <hr>
+
+    <!-- BLOGGER EMBED -->
+    <section>
+      <h3>From the blog</h3>
+      <iframe src="https://lifeofsushanttt.blogspot.com/" title="My Blogger site" width="100%" height="400" loading="lazy"></iframe>
+    </section>
+
+    <hr>
+
+    <!-- PROJECTS SECTION -->
+    <section>
+      <h3>Featured Projects</h3>
+
+      <!-- Project 1: FileCode -->
+      <article>
+        <h4>FileCode</h4>
+        <p>A web application designed for secure file uploads equipped with password protection and access locking.</p>
+        <p><em>Tags: File Sharing, Security & Locks, Web Utility</em></p>
+        <p><a href="https://filecode.netlify.app/" target="_blank" rel="noopener">Visit Live Project</a></p>
+        <iframe src="https://filecode.netlify.app/" title="FileCode Live Preview" width="100%" height="300" loading="lazy"></iframe>
+      </article>
+
+      <br>
+
+      <!-- Project 2: LetterSake -->
+      <article>
+        <h4>LetterSake</h4>
+        <p>A digital greeting web application for creating and sending personalized letters, wishes, and digital messages.</p>
+        <p><em>Tags: Digital Wishes, Interactive UI, Web Experience</em></p>
+        <p><a href="https://lettersake.netlify.app/" target="_blank" rel="noopener">Visit Live Project</a></p>
+        <iframe src="https://lettersake.netlify.app/" title="LetterSake Live Preview" width="100%" height="300" loading="lazy"></iframe>
+      </article>
+    </section>
+
+    <hr>
+
+    <!-- YOUTUBE VIDEOS -->
+    <section>
+      <h3>Latest videos</h3>
+      <div>
+        <iframe src="https://www.youtube.com/embed/V_ob7uIgeCM" title="Video 1" width="300" height="200" loading="lazy" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/xDTvA1ADA_Y" title="Video 2" width="300" height="200" loading="lazy" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/SDDyy--drjk" title="Video 3" width="300" height="200" loading="lazy" allowfullscreen></iframe>
       </div>
+    </section>
 
-      <!-- Description -->
-      <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.5;">
-        A web application designed for secure file uploads equipped with password protection and access locking.
-      </p>
+    <hr>
 
-      <!-- Tags -->
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <span style="font-size: 0.75rem; font-weight: 600; color: var(--accent-deep); background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--glass-border);">File Sharing</span>
-        <span style="font-size: 0.75rem; font-weight: 600; color: var(--accent-deep); background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--glass-border);">Security & Locks</span>
-        <span style="font-size: 0.75rem; font-weight: 600; color: var(--accent-deep); background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--glass-border);">Web Utility</span>
-      </div>
+    <footer>
+      <p>&copy; <span id="year"></span> Sushant Singh.</p>
+    </footer>
+  </main>
 
-      <!-- Live Webpage Preview -->
-      <div style="
-        position: relative; 
-        width: 100%; 
-        height: 340px; 
-        border-radius: var(--radius-md); 
-        overflow: hidden; 
-        border: 1px solid var(--glass-border); 
-        background: rgba(255,255,255,0.4);
-      ">
-        <iframe 
-          src="https://filecode.netlify.app/" 
-          title="FileCode Live Preview" 
-          loading="lazy" 
-          style="width: 100%; height: 100%; border: none;"
-        ></iframe>
-      </div>
+  <!-- Tawk.to Live Chat Script -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/6a1bc68933b64c1c2ac907cc/1jpu7v2tn';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
 
-    </div>
-
-    <!-- Project Card 2: LetterSake -->
-    <div class="glass" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-      
-      <!-- Header Bar -->
-      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <!-- Glowing Green Icon -->
-          <span style="
-            width: 12px; 
-            height: 12px; 
-            background-color: #2ecc71; 
-            border-radius: 50%; 
-            display: inline-block; 
-            box-shadow: 0 0 10px #2ecc71, 0 0 4px #2ecc71;
-            flex-shrink: 0;
-          "></span>
-          
-          <h3 style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--ink);">
-            LetterSake
-          </h3>
-        </div>
-
-        <!-- Visit Live Button -->
-        <a 
-          href="https://lettersake.netlify.app/" 
-          target="_blank" 
-          rel="noopener" 
-          style="
-            display: inline-flex; 
-            align-items: center; 
-            gap: 6px; 
-            padding: 8px 16px; 
-            background: var(--glass-fill-strong); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 999px; 
-            color: var(--accent-deep); 
-            text-decoration: none; 
-            font-family: 'Outfit', sans-serif; 
-            font-weight: 600; 
-            font-size: 0.85rem;
-          "
-        >
-          <span>Visit Live</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <line x1="10" y1="14" x2="21" y2="3"></line>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Description -->
-      <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.5;">
-        A digital greeting web application for creating and sending personalized letters, wishes, and digital messages.
-      </p>
-
-      <!-- Tags -->
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <span style="font-size: 0.75rem; font-weight: 600; color: var(--accent-deep); background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--glass-border);">Digital Wishes</span>
-        <span style="font-size: 0.75rem; font-weight: 600; color: var(--accent-deep); background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--glass-border);">Interactive UI</span>
-        <span style="font-size: 0.75rem; font-weight: 600; color: var(--accent-deep); background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--glass-border);">Web Experience</span>
-      </div>
-
-      <!-- Live Webpage Preview -->
-      <div style="
-        position: relative; 
-        width: 100%; 
-        height: 340px; 
-        border-radius: var(--radius-md); 
-        overflow: hidden; 
-        border: 1px solid var(--glass-border); 
-        background: rgba(255,255,255,0.4);
-      ">
-        <iframe 
-          src="https://lettersake.netlify.app/" 
-          title="LetterSake Live Preview" 
-          loading="lazy" 
-          style="width: 100%; height: 100%; border: none;"
-        ></iframe>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-     
-
-  <!-- ================= YOUTUBE VIDEOS ================= -->
-  <section>
-    <div class="section-label">Latest videos</div>
-    <div class="glass embed-card">
-      <div class="video-grid">
-        <div class="video-frame-wrap">
-          <iframe src="https://www.youtube.com/embed/V_ob7uIgeCM" title="Video 1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="video-frame-wrap">
-          <iframe src="https://www.youtube.com/embed/xDTvA1ADA_Y" title="Video 2" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="video-frame-wrap">
-          <iframe src="https://www.youtube.com/embed/SDDyy--drjk" title="Video 3" loading="lazy" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-     <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a1bc68933b64c1c2ac907cc/1jpu7v2tn';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-
-  <footer>
-    &copy; <span id="year"></span> Sushant Singh.
-  </footer>
-
-</main>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-
+  <!-- Dynamic Year Script -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
