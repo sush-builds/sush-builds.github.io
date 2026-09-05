@@ -1,1 +1,22 @@
 
+<script> (function(){
+    const overlay = document.getElementById('donate-overlay');
+    const closeX = document.getElementById('donate-close-x');
+    const dismiss = document.getElementById('donate-dismiss');
+
+    if (!sessionStorage.getItem('donatePopupShown')) {
+      setTimeout(function(){
+        overlay.classList.add('show');
+      }, 600);
+      sessionStorage.setItem('donatePopupShown', 'true');
+    }
+
+    function closePopup(){ overlay.classList.remove('show'); }
+
+    closeX.addEventListener('click', closePopup);
+    dismiss.addEventListener('click', closePopup);
+    overlay.addEventListener('click', function(e){
+      if (e.target === overlay) closePopup();
+    });
+  })();
+</script>
