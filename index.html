@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-     
-  
-     
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sushant — Portfolio</title>
@@ -24,16 +20,71 @@
      <main style="padding-top: 80px;">
 
      <!-- ================= FIXED TOP GLASS BANNER ================= -->
+<header style="
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 10vw);
+  max-width: 1000px;
+  height: 60px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 999px;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(31, 84, 120, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  pointer-events: auto;
+">
+  <!-- Brand Name -->
+  <span style="
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+    color: var(--accent-deep);
+    text-shadow: 0 2px 10px rgba(46, 134, 193, 0.15);
+  ">SUSHANT.</span>
 
-
-  
-     
-      <script
+       <span style="
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+    color: var(--accent-deep);
+    text-shadow: 0 2px 10px rgba(46, 134, 193, 0.15);
+  "> <script
   src="https://cdn.jsdelivr.net/gh/clashrelated/nepal-relief-banner@1.0.2/banner.min.js"
   integrity="sha384-zsV61Tmn6kfxMnauiuGMOgbTqBC6qhHBy/x0ne2M0sSSoK3q+xTlPs3ZMC8W/SUp"
   crossorigin="anonymous"
 ></script> </span>
+     
 
+  <!-- Glowing Live Status Dot -->
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <span style="
+      width: 10px;
+      height: 10px;
+      background-color: #2ecc71;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px #2ecc71, 0 0 4px #2ecc71;
+    "></span>
+    <span style="
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    ">Portfolio</span>
+  </div>
+</header>
      
 <style>
   :root{
@@ -282,6 +333,7 @@
 <div class="bubble b4"></div>
 
 <main>
+
   <!-- ================= HERO ================= -->
   <section class="glass hero">
     <div class="avatar-ring">
@@ -340,7 +392,7 @@
   </style>
 
   <!-- Replace 'your.email@gmail.com' with your actual email address -->
-  <a class="glass email-card" href="mailto:mail@sushantsingh.com.np">
+  <a class="glass email-card" href="mailto:admin@sushantsingh.com.np">
     <svg width="32" height="32" viewBox="0 0 24 24">
       <path class="g-blue" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
       <path class="g-red" d="M12 13L4 8v10h16V8l-8 5z" opacity="0.3"/>
