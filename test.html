@@ -1,257 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pure HTML/CSS Interactive Portfolio Pet</title>
-  <style>
-    /* Widget Base Styling */
-    .pet-container {
-      width: 320px;
-      margin: 40px auto;
-      padding: 24px;
-      background: #1e293b;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #f8fafc;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepal - Land of Heritages</title>
+    <style>
+        :root {
+            --crimson: #DC143C;
+            --gold: #FFD700;
+            --dark-navy: #0D1B2A;
+            --light-bg: #F4F1DE;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+        }
 
-    .pet-container h3 {
-      margin: 0 0 16px 0;
-      color: #38bdf8;
-      font-size: 1.2rem;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    /* Hide the logic checkboxes */
-    .pet-toggle {
-      display: none;
-    }
+        body {
+            background: linear-gradient(180deg, #1d2d44 0%, #3d5a80 40%, #e0fbfc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    /* The Pet Display Area */
-    .pet-stage {
-      position: relative;
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 20px;
-      background: #0f172a;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 3px solid #334155;
-    }
+        /* Header & Digital Clock */
+        header {
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13, 27, 42, 0.7);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
 
-    /* Speech Bubble */
-    .speech-bubble {
-      position: absolute;
-      top: -15px;
-      background: #38bdf8;
-      color: #0f172a;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 0.85rem;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
-      pointer-events: none;
-    }
+        .logo-title h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: #fff;
+        }
 
-    .speech-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 6px 6px 0;
-      border-style: solid;
-      border-color: #38bdf8 transparent;
-    }
+        .logo-title span {
+            color: var(--gold);
+        }
 
-    /* CSS Pure-Code Cat Character */
-    .cat {
-      position: relative;
-      width: 80px;
-      height: 70px;
-      background: #f97316; /* Orange Cat */
-      border-radius: 40px 40px 30px 30px;
-      transition: transform 0.3s ease;
-      animation: idleBob 3s infinite ease-in-out;
-    }
+        .clock-container {
+            text-align: right;
+            font-family: monospace;
+        }
 
-    /* Ears */
-    .cat::before, .cat::after {
-      content: '';
-      position: absolute;
-      top: -12px;
-      width: 0;
-      height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 20px solid #f97316;
-    }
-    .cat::before { left: 4px; transform: rotate(-15deg); }
-    .cat::after { right: 4px; transform: rotate(15deg); }
+        #clock {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
 
-    /* Eyes */
-    .eyes {
-      position: absolute;
-      top: 24px;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      padding: 0 16px;
-      box-sizing: border-box;
-    }
-    .eye {
-      width: 12px;
-      height: 12px;
-      background: #0f172a;
-      border-radius: 50%;
-      transition: all 0.2s ease;
-    }
+        #date {
+            font-size: 0.85rem;
+            color: #ccc;
+        }
 
-    /* Mouth */
-    .mouth {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 10px;
-      height: 6px;
-      border-bottom: 3px solid #0f172a;
-      border-radius: 0 0 10px 10px;
-      transition: all 0.2s ease;
-    }
+        /* Hero Artistic Background Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            overflow: hidden;
+        }
 
-    /* Food Bowl (Hidden by default) */
-    .food-bowl {
-      position: absolute;
-      bottom: 15px;
-      right: 20px;
-      font-size: 1.5rem;
-      opacity: 0;
-      transform: scale(0);
-      transition: all 0.3s ease;
-    }
+        /* Artistic Mountain & Heritage SVG Background Layer */
+        .art-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-    /* Interactive Buttons */
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            margin-bottom: 50px;
+        }
 
-    .btn {
-      display: inline-block;
-      padding: 8px 16px;
-      background: #334155;
-      color: #f8fafc;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s, transform 0.1s;
-    }
+        .hero-content h2 {
+            font-size: 2.5rem;
+            color: var(--dark-navy);
+            margin-bottom: 15px;
+        }
 
-    .btn:hover {
-      background: #475569;
-    }
+        .hero-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 25px;
+        }
 
-    .btn:active {
-      transform: scale(0.95);
-    }
+        /* Flood Relief Donation Button */
+        .donate-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--crimson), #A00000);
+            color: #fff;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
 
-    /* --- HTML/CSS INTERACTIVE STATE LOGIC --- */
+        .donate-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #FF1E4B, var(--crimson));
+        }
 
-    /* 1. Action: Pet Cat */
-    #toggle-pet:checked ~ .pet-stage .cat {
-      animation: purr 0.4s infinite alternate;
-    }
-    #toggle-pet:checked ~ .pet-stage .speech-bubble-pet {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    #toggle-pet:checked ~ .controls .btn-pet {
-      background: #e11d48;
-    }
+        /* Music Player Section */
+        .player-section {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 500px;
+            background: var(--dark-navy);
+            color: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            margin-bottom: 60px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
 
-    /* 2. Action: Feed Cat */
-    #toggle-feed:checked ~ .pet-stage .food-bowl {
-      opacity: 1;
-      transform: scale(1);
-    }
-    #toggle-feed:checked ~ .pet-stage .speech-bubble-feed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    #toggle-feed:checked ~ .controls .btn-feed {
-      background: #16a34a;
-    }
+        .player-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
 
-    /* 3. Action: Sleep Mode */
-    #toggle-sleep:checked ~ .pet-stage .eye {
-      height: 2px;
-      margin-top: 5px;
-    }
-    #toggle-sleep:checked ~ .pet-stage .cat {
-      animation: none;
-      transform: translateY(8px);
-    }
-    #toggle-sleep:checked ~ .pet-stage .speech-bubble-sleep {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    #toggle-sleep:checked ~ .controls .btn-sleep {
-      background: #9333ea;
-    }
+        .player-header h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
 
-    /* Keyframe Animations */
-    @keyframes idleBob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
+        .playlist {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
 
-    @keyframes purr {
-      0% { transform: scale(1) translateY(0); }
-      100% { transform: scale(1.05) translateY(-4px); }
-    }
-  </style>
+        .playlist-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playlist-item a {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid var(--gold);
+            padding: 4px 10px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .playlist-item a:hover {
+            background: var(--gold);
+            color: var(--dark-navy);
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: var(--dark-navy);
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="pet-container">
-    <h3>Portfolio Companion</h3>
-
-    <input type="checkbox" id="toggle-pet" class="pet-toggle">
-    <input type="checkbox" id="toggle-feed" class="pet-toggle">
-    <input type="checkbox" id="toggle-sleep" class="pet-toggle">
-
-    <div class="pet-stage">
-      <div class="speech-bubble speech-bubble-pet">Purrr! ❤️</div>
-      <div class="speech-bubble speech-bubble-feed">Nom nom! 🐟</div>
-      <div class="speech-bubble speech-bubble-sleep">Zzz... 🌙</div>
-
-      <div class="cat">
-        <div class="eyes">
-          <div class="eye"></div>
-          <div class="eye"></div>
+    <header>
+        <div class="logo-title">
+            <h1>Nepal <span>Heritages</span></h1>
         </div>
-        <div class="mouth"></div>
-      </div>
+        <div class="clock-container">
+            <div id="clock">00:00:00 AM</div>
+            <div id="date">Loading date...</div>
+        </div>
+    </header>
 
-      <div class="food-bowl">🐟</div>
-    </div>
+    <section class="hero">
+        <svg class="art-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+            <path fill="#2b4c7e" opacity="0.5" d="M0 800 L0 450 L180 250 L350 480 L550 180 L750 420 L950 150 L1200 400 L1200 800 Z"/>
+            <path fill="#ffffff" opacity="0.3" d="M550 180 L510 240 L590 240 Z M950 150 L910 210 L990 210 Z M180 250 L150 290 L210 290 Z"/>
+            
+            <path fill="#1b263b" opacity="0.8" d="M0 800 L0 550 L250 400 L500 580 L800 380 L1200 550 L1200 800 Z"/>
+            
+            <path fill="#0d1b2a" d="M950 800 L950 600 L930 600 L930 580 L940 580 L940 540 L920 540 L920 520 L930 520 L930 490 L980 440 L1030 490 L1030 520 L1040 520 L1040 540 L1020 540 L1020 580 L1030 580 L1030 600 L1010 600 L1010 800 Z"/>
+            <path fill="#0d1b2a" d="M900 600 L1060 600 L1040 580 L920 580 Z"/>
+            <path fill="#0d1b2a" d="M910 540 L1050 540 L1030 520 L930 520 Z"/>
+            
+            <rect x="0" y="750" width="1200" height="50" fill="#0d1b2a"/>
+        </svg>
 
-    <div class="controls">
-      <label for="toggle-pet" class="btn btn-pet">Pet</label>
-      <label for="toggle-feed" class="btn btn-feed">Feed</label>
-      <label for="toggle-sleep" class="btn btn-sleep">Sleep</label>
-    </div>
-  </div>
+        <div class="hero-content">
+            <h2>Preserving Heritage & Hope</h2>
+            <p>
+                Nepal is a rich tapestry of timeless traditions, artistic temples, and breathtaking landscapes. 
+                In light of recent disasters, let's stand together to rebuild communities and restore our historical treasures.
+            </p>
+            <a href="https://pmdrf.nchl.com.np" target="_blank" rel="noopener noreferrer" class="donate-btn">
+                &#10084; Donate to Nepal Flood Relief (PMDRF)
+            </a>
+        </div>
 
+        <div class="player-section">
+            <div class="player-header">
+                <h3>Popular Nepali Tracks</h3>
+            </div>
+            <div class="playlist">
+                <div class="playlist-item">
+                    <div>
+                        <strong>Dashain Aayo</strong><br>
+                        <small style="color: #aaa;">Sugam Pokharel</small>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=vvKZH-fzr14" target="_blank">Watch on YouTube</a>
+                </div>
+                <div class="playlist-item">
+                    <div>
+                        <strong>Hamro Nepal Ma</strong><br>
+                        <small style="color: #aaa;">Neetesh Jung Kunwar</small>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=lWCLUewJYMM" target="_blank">Watch on YouTube</a>
+                </div>
+                <div class="playlist-item">
+                    <div>
+                        <strong>Gedai Jasto Jindagi</strong><br>
+                        <small style="color: #aaa;">Neetesh Jung Kunwar</small>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=gEcK8U_QenI" target="_blank">Watch on YouTube</a>
+                </div>
+                <div class="playlist-item">
+                    <div>
+                        <strong>Resham Firiri</strong><br>
+                        <small style="color: #aaa;">Original Folk</small>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=ky5gOjb4GOw" target="_blank">Watch on YouTube</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nepal Heritage Initiative. Stand Strong with Nepal.</p>
+    </footer>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const formattedHours = String(hours).padStart(2, '0');
+
+            document.getElementById('clock').textContent = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
+            
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
