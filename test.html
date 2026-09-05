@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepal - Land of Heritages</title>
+    <title>Nepal Heritage & Flood Relief</title>
     <style>
         :root {
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             --crimson: #DC143C;
             --gold: #FFD700;
-            --dark-navy: #0D1B2A;
-            --light-bg: #F4F1DE;
-            --glass-bg: rgba(255, 255, 255, 0.85);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background: linear-gradient(180deg, #1d2d44 0%, #3d5a80 40%, #e0fbfc 100%);
-            color: #333;
+            /* Background image set to local uploaded file */
+            background: url('istockphoto-628303894-612x612.jpg') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
+            color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
             position: relative;
+            padding-bottom: 60px;
         }
 
-        /* Header & Digital Clock */
+        /* Glassmorphism Utility */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Header & Real-time Clock */
         header {
-            width: 100%;
-            padding: 20px 5%;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px 0;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(13, 27, 42, 0.7);
-            backdrop-filter: blur(10px);
-            color: #fff;
-            position: fixed;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
         .logo-title h1 {
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-            color: #fff;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .logo-title span {
@@ -59,239 +66,244 @@
 
         .clock-container {
             text-align: right;
-            font-family: monospace;
         }
 
         #clock {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--gold);
+            font-family: monospace;
         }
 
         #date {
             font-size: 0.85rem;
-            color: #ccc;
+            color: #e0e0e0;
         }
 
-        /* Hero Artistic Background Section */
-        .hero {
-            position: relative;
-            width: 100%;
-            min-height: 85vh;
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            gap: 25px;
+            z-index: 5;
+        }
+
+        .hero-section {
+            padding: 35px;
             text-align: center;
-            padding: 120px 20px 60px;
-            overflow: hidden;
         }
 
-        /* Artistic Mountain & Heritage SVG Background Layer */
-        .art-background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            background: var(--glass-bg);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
-            margin-bottom: 50px;
-        }
-
-        .hero-content h2 {
-            font-size: 2.5rem;
-            color: var(--dark-navy);
+        .hero-section h2 {
+            font-size: 2.2rem;
             margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
         }
 
-        .hero-content p {
-            font-size: 1.1rem;
+        .hero-section p {
+            font-size: 1.05rem;
             line-height: 1.6;
-            color: #444;
-            margin-bottom: 25px;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Flood Relief Donation Button */
-        .donate-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--crimson), #A00000);
-            color: #fff;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
+        /* Spotify Section */
+        .music-section {
+            padding: 25px;
+        }
+
+        .music-section h3 {
+            margin-bottom: 15px;
+            color: var(--gold);
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .spotify-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        iframe.spotify-embed {
+            border-radius: 12px;
+            border: none;
+            width: 100%;
+            height: 80px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Floating Side Donate Button */
+        .floating-donate-btn {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--crimson), #8B0000);
+            color: white;
+            padding: 16px 22px;
             border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
-            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.6);
             border: 2px solid var(--gold);
+            backdrop-filter: blur(8px);
+            z-index: 99;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .donate-btn:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
+        .floating-donate-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 12px 30px rgba(220, 20, 60, 0.8);
             background: linear-gradient(135deg, #FF1E4B, var(--crimson));
         }
 
-        /* Music Player Section */
-        .player-section {
-            position: relative;
-            z-index: 2;
-            width: 90%;
-            max-width: 500px;
-            background: var(--dark-navy);
-            color: #fff;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            margin-bottom: 60px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .player-header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
-        }
-
-        .player-header h3 {
-            color: var(--gold);
-            font-size: 1.3rem;
-        }
-
-        .playlist {
-            max-height: 250px;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-        }
-
-        .playlist-item {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        /* Pop-up Modal (Entry Overlay) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.4s ease;
         }
 
-        .playlist-item a {
-            color: #FFD700;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border: 1px solid var(--gold);
-            padding: 4px 10px;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .playlist-item a:hover {
-            background: var(--gold);
-            color: var(--dark-navy);
-        }
-
-        footer {
-            position: relative;
-            z-index: 2;
-            width: 100%;
+        .modal-card {
+            width: 90%;
+            max-width: 480px;
+            padding: 30px;
             text-align: center;
-            padding: 20px;
-            background: var(--dark-navy);
-            color: #888;
-            font-size: 0.9rem;
+            position: relative;
+            animation: popup 0.5s ease-out forwards;
+        }
+
+        @keyframes popup {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal-card h2 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .modal-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: #eee;
+        }
+
+        .modal-donate-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--crimson), #A00000);
+            color: #fff;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.5);
+            transition: transform 0.2s;
+        }
+
+        .modal-donate-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hide modal helper */
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .floating-donate-btn {
+                top: auto;
+                bottom: 20px;
+                right: 50%;
+                transform: translateX(50%);
+            }
+            .floating-donate-btn:hover {
+                transform: translateX(50%) scale(1.05);
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header class="glass-panel">
         <div class="logo-title">
             <h1>Nepal <span>Heritages</span></h1>
         </div>
         <div class="clock-container">
             <div id="clock">00:00:00 AM</div>
-            <div id="date">Loading date...</div>
+            <div id="date">Loading...</div>
         </div>
     </header>
 
-    <section class="hero">
-        <svg class="art-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
-            <path fill="#2b4c7e" opacity="0.5" d="M0 800 L0 450 L180 250 L350 480 L550 180 L750 420 L950 150 L1200 400 L1200 800 Z"/>
-            <path fill="#ffffff" opacity="0.3" d="M550 180 L510 240 L590 240 Z M950 150 L910 210 L990 210 Z M180 250 L150 290 L210 290 Z"/>
-            
-            <path fill="#1b263b" opacity="0.8" d="M0 800 L0 550 L250 400 L500 580 L800 380 L1200 550 L1200 800 Z"/>
-            
-            <path fill="#0d1b2a" d="M950 800 L950 600 L930 600 L930 580 L940 580 L940 540 L920 540 L920 520 L930 520 L930 490 L980 440 L1030 490 L1030 520 L1040 520 L1040 540 L1020 540 L1020 580 L1030 580 L1030 600 L1010 600 L1010 800 Z"/>
-            <path fill="#0d1b2a" d="M900 600 L1060 600 L1040 580 L920 580 Z"/>
-            <path fill="#0d1b2a" d="M910 540 L1050 540 L1030 520 L930 520 Z"/>
-            
-            <rect x="0" y="750" width="1200" height="50" fill="#0d1b2a"/>
-        </svg>
-
-        <div class="hero-content">
-            <h2>Preserving Heritage & Hope</h2>
+    <div class="container">
+        <section class="hero-section glass-panel">
+            <h2>Preserving Heritage & Rebuilding Communities</h2>
             <p>
-                Nepal is a rich tapestry of timeless traditions, artistic temples, and breathtaking landscapes. 
-                In light of recent disasters, let's stand together to rebuild communities and restore our historical treasures.
+                Explore Nepal's rich cultural monuments and vibrant living traditions. Stand with us to support flood victims across affected areas.
             </p>
-            <a href="https://pmdrf.nchl.com.np" target="_blank" rel="noopener noreferrer" class="donate-btn">
-                &#10084; Donate to Nepal Flood Relief (PMDRF)
+        </section>
+
+        <section class="music-section glass-panel">
+            <h3>Popular Nepali Music</h3>
+            <div class="spotify-container">
+                <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/2S2yqL5J0O1vN0V03lW9gY?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                
+                <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/25Y8aB8qH2d1z2QvG1kZ7I?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+                <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/1J70V5u1X2fG0wR8jK4a9Z?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </section>
+    </div>
+
+    <a href="https://pmdrf.nchl.com.np" target="_blank" rel="noopener noreferrer" class="floating-donate-btn">
+        &#10084; Donate Now
+    </a>
+
+    <div class="modal-overlay" id="entryModal">
+        <div class="modal-card glass-panel">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2>Emergency Relief Alert</h2>
+            <p>Recent floods have affected many communities and heritage landscapes across Nepal. Support recovery efforts directly through the official portal.</p>
+            <a href="https://pmdrf.nchl.com.np" target="_blank" rel="noopener noreferrer" class="modal-donate-btn">
+                Donate via PMDRF
             </a>
         </div>
-
-        <div class="player-section">
-            <div class="player-header">
-                <h3>Popular Nepali Tracks</h3>
-            </div>
-            <div class="playlist">
-                <div class="playlist-item">
-                    <div>
-                        <strong>Dashain Aayo</strong><br>
-                        <small style="color: #aaa;">Sugam Pokharel</small>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=vvKZH-fzr14" target="_blank">Watch on YouTube</a>
-                </div>
-                <div class="playlist-item">
-                    <div>
-                        <strong>Hamro Nepal Ma</strong><br>
-                        <small style="color: #aaa;">Neetesh Jung Kunwar</small>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=lWCLUewJYMM" target="_blank">Watch on YouTube</a>
-                </div>
-                <div class="playlist-item">
-                    <div>
-                        <strong>Gedai Jasto Jindagi</strong><br>
-                        <small style="color: #aaa;">Neetesh Jung Kunwar</small>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=gEcK8U_QenI" target="_blank">Watch on YouTube</a>
-                </div>
-                <div class="playlist-item">
-                    <div>
-                        <strong>Resham Firiri</strong><br>
-                        <small style="color: #aaa;">Original Folk</small>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=ky5gOjb4GOw" target="_blank">Watch on YouTube</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Nepal Heritage Initiative. Stand Strong with Nepal.</p>
-    </footer>
+    </div>
 
     <script>
+        // Real-Time Clock Function
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -305,11 +317,16 @@
 
             document.getElementById('clock').textContent = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
             
-            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
         }
         setInterval(updateClock, 1000);
         updateClock();
+
+        // Modal Close Action
+        function closeModal() {
+            document.getElementById('entryModal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
