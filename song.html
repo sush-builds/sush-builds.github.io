@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .player-container {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #1db954;
+        }
+
+        .track-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .track-item {
+            padding: 12px;
+            background: #2a2a2a;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: left;
+        }
+
+        .track-item:hover {
+            background: #333333;
+        }
+
+        .track-item.active {
+            border-left: 4px solid #1db954;
+            background: #333333;
+            font-weight: bold;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="player-container">
+        <h2>Online Music Player</h2>
+
+        <!-- Playlist -->
+        <ul class="track-list" id="track-list">
+            <!-- PASTE YOUR AUDIO URLS IN THE DATA-SRC ATTRIBUTES BELOW -->
+            <li class="track-item active" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                Song 1 - SoundHelix
+            </li>
+            <li class="track-item" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+                Song 2 - SoundHelix
+            </li>
+            <li class="track-item" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
+                Song 3 - SoundHelix
+            </li>
+        </ul>
+
+        <!-- Audio Player -->
+        <audio id="audio-player" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audio-player');
+        const trackItems = document.querySelectorAll('.track-item');
+
+        trackItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all tracks
+                trackItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked track
+                this.classList.add('active');
+
+                // Change audio source and play
+                audioPlayer.src = this.getAttribute('data-src');
+                audioPlayer.play();
+            });
+        });
+    </script>
+
+</body>
+</html>
+
