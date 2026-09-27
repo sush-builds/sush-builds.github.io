@@ -348,209 +348,6 @@
     padding-top:10px;
   }
 
-  /* ---------- Donate: heart link next to title ---------- */
-  .name-row{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-  }
-
-  .donate-heart{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    line-height:0;
-    animation:heartbeat 1.6s ease-in-out infinite;
-  }
-  .donate-heart svg{ width:30px; height:30px; fill:#e0455f; }
-
-  @keyframes heartbeat{
-    0%, 100%{ transform:scale(1); }
-    15%{ transform:scale(1.18); }
-    30%{ transform:scale(1); }
-    45%{ transform:scale(1.12); }
-    60%{ transform:scale(1); }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .donate-heart{ animation:none; }
-  }
-
-  /* ---------- Donate: floating side button ---------- */
-  .donate-float{
-    position:fixed;
-    right:22px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:900;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:12px 18px;
-    border-radius:999px;
-    text-decoration:none;
-    font-family:'Outfit', sans-serif;
-    font-weight:700;
-    font-size:0.9rem;
-    color:#fff;
-    background:linear-gradient(135deg, #e0455f, #c22f47);
-    box-shadow:0 10px 26px rgba(194,47,71,0.4);
-    transition:transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .donate-float:hover{
-    transform:translateY(-50%) scale(1.06);
-    box-shadow:0 14px 32px rgba(194,47,71,0.5);
-  }
-  .donate-float svg{ width:18px; height:18px; fill:#fff; }
-
-  @media (max-width:600px){
-    .donate-float{
-      right:auto;
-      left:50%;
-      top:auto;
-      bottom:18px;
-      transform:translateX(-50%);
-    }
-    .donate-float:hover{ transform:translateX(-50%) scale(1.06); }
-  }
-
-  /* ---------- Donate: popup modal on load ---------- */
-  .donate-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(15,45,64,0.45);
-    backdrop-filter:blur(4px);
-    -webkit-backdrop-filter:blur(4px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:1100;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity 0.3s ease;
-  }
-  .donate-overlay.show{ opacity:1; pointer-events:auto; }
-
-  .donate-modal{
-    max-width:420px;
-    width:100%;
-    padding:32px 28px;
-    text-align:center;
-    background:rgba(255,255,255,0.65);
-    border:1px solid var(--glass-border);
-    border-radius:var(--radius-lg);
-    backdrop-filter:blur(20px) saturate(160%);
-    -webkit-backdrop-filter:blur(20px) saturate(160%);
-    box-shadow:0 20px 50px rgba(20,60,90,0.35);
-    position:relative;
-    transform:translateY(14px);
-    transition:transform 0.3s ease;
-  }
-  .donate-overlay.show .donate-modal{ transform:translateY(0); }
-
-  .donate-modal .heart-big{ font-size:38px; margin-bottom:8px; }
-
-  .donate-modal h2{
-    font-family:'Outfit', sans-serif;
-    font-weight:800;
-    font-size:1.3rem;
-    color:var(--ink);
-    margin-bottom:10px;
-  }
-
-  .donate-modal p{
-    color:var(--ink-soft);
-    font-size:0.95rem;
-    line-height:1.6;
-    margin-bottom:20px;
-  }
-
-  .donate-modal-actions{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-
-  .donate-cta{
-    display:inline-block;
-    text-decoration:none;
-    font-family:'Outfit', sans-serif;
-    font-weight:700;
-    font-size:0.95rem;
-    color:#fff;
-    background:linear-gradient(135deg, #e0455f, #c22f47);
-    padding:12px 20px;
-    border-radius:999px;
-    box-shadow:0 10px 24px rgba(194,47,71,0.35);
-    transition:transform 0.2s ease;
-  }
-  .donate-cta:hover{ transform:translateY(-2px); }
-
-  .donate-dismiss{
-    background:none;
-    border:none;
-    color:var(--ink-soft);
-    font-family:'Inter', sans-serif;
-    font-size:0.85rem;
-    text-decoration:underline;
-    cursor:pointer;
-    padding:4px;
-  }
-
-  .donate-close-x{
-    position:absolute;
-    top:12px;
-    right:14px;
-    background:none;
-    border:none;
-    font-size:1.2rem;
-    line-height:1;
-    color:var(--ink-soft);
-    cursor:pointer;
-    padding:4px;
-  }
-  .donate-close-x:hover{ color:var(--ink); }
-
-  @media (max-width:600px){
-    main{ padding:5vh 5vw 8vh; gap:20px; }
-    .hero{ padding:6vh 6vw; }
-    .blog-frame{ height:560px; }
-  }
-</style>
-</head>
-<body>
-
-<!-- ================= DONATE: floating side button ================= -->
-<a class="donate-float" href="https://pmdrf.nchl.com.np" target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.33-8.2C.86 10.28 1.3 6.7 4.2 4.9c2.1-1.3 4.7-.8 6.2 1.1.5.63.9 1.35 1.6 1.35s1.1-.72 1.6-1.35c1.5-1.9 4.1-2.4 6.2-1.1 2.9 1.8 3.34 5.38 1.53 7.9C18.7 16.65 12 21 12 21Z"/></svg>
-  Donate
-</a>
-
-<!-- ================= DONATE: popup on page load ================= -->
-<div class="donate-overlay" id="donate-overlay">
-  <div class="donate-modal">
-    <button class="donate-close-x" id="donate-close-x" aria-label="Close">✕</button>
-    <div class="heart-big">❤️</div>
-    <h2>Help Nepal's flood victims</h2>
-    <p>
-      Recent floods have left many families in Nepal without homes, food, or safety.
-      Every contribution to the Prime Minister Disaster Relief Fund helps get aid where
-      it's needed most.
-    </p>
-    <div class="donate-modal-actions">
-      <a class="donate-cta" href="https://pmdrf.nchl.com.np" target="_blank" rel="noopener">Donate now</a>
-      <button class="donate-dismiss" id="donate-dismiss">Maybe later</button>
-    </div>
-  </div>
-</div>
-
-<div class="bubble b1"></div>
-<div class="bubble b2"></div>
-<div class="bubble b3"></div>
-<div class="bubble b4"></div>
 
 <main>
 
@@ -648,7 +445,7 @@
           <span>Instagram</span>
         </a>
 
-        <a class="social-card" href="https://www.linkedin.com/in/sushant-singh-460290403/" target="_blank" rel="noopener">
+        <a class="social-card" href="https://www.linkedin.com/in/sushanttt-singh/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
           <span>LinkedIn</span>
         </a>
@@ -658,7 +455,7 @@
           <span>Facebook</span>
         </a>
 
-        <a class="social-card" href="https://tiktok.com/@user200806260" target="_blank" rel="noopener">
+        <a class="social-card" href="https://tiktok.com/@sushanttt.singh" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M16.6 2h-3.3v14.2a2.9 2.9 0 1 1-2.06-2.78V9.98a6.1 6.1 0 1 0 5.36 6.06V8.62a7.5 7.5 0 0 0 4.4 1.42V6.7a4.2 4.2 0 0 1-4.4-4.2Z"/></svg>
           <span>TikTok</span>
         </a>
@@ -712,7 +509,7 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 
   <footer>
-    &copy; <span id="year"></span> © Sushant Singh 2026
+    &copy; Sushant Singh <span id="year"></span>
   </footer>
 
 </main>
@@ -720,28 +517,6 @@ s0.parentNode.insertBefore(s1,s0);
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ---- Donate popup: show once per browser tab session ----
-  (function(){
-    const overlay = document.getElementById('donate-overlay');
-    const closeX = document.getElementById('donate-close-x');
-    const dismiss = document.getElementById('donate-dismiss');
-
-    if (!sessionStorage.getItem('donatePopupShown')) {
-      setTimeout(function(){
-        overlay.classList.add('show');
-      }, 600);
-      sessionStorage.setItem('donatePopupShown', 'true');
-    }
-
-    function closePopup(){ overlay.classList.remove('show'); }
-
-    closeX.addEventListener('click', closePopup);
-    dismiss.addEventListener('click', closePopup);
-    overlay.addEventListener('click', function(e){
-      if (e.target === overlay) closePopup();
-    });
-  })();
-</script>
 
 </body>
 </html>
