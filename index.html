@@ -1,514 +1,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sushant — Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushant Singh</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        skyGlass: 'rgba(255, 255, 255, 0.28)',
+                        skyGlassHover: 'rgba(255, 255, 255, 0.45)',
+                        skyBorder: 'rgba(255, 255, 255, 0.55)',
+                        accentDeep: '#1b5f8c',
+                        accentGlow: '#2e86c1',
+                        inkDark: '#0f2735',
+                        inkSoft: '#3f6579',
+                    },
+                    animation: {
+                        'float-slow': 'float 18s ease-in-out infinite',
+                        'float-reverse': 'floatReverse 22s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'gradient-xy': 'gradientXY 15s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg) scale(1)' },
+                            '50%': { transform: 'translateY(-30px) rotate(10deg) scale(1.05)' },
+                        },
+                        floatReverse: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg) scale(1)' },
+                            '50%': { transform: 'translateY(35px) rotate(-12deg) scale(0.95)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.8, boxShadow: '0 0 15px rgba(46, 204, 113, 0.8)' },
+                            '50%': { opacity: 0.4, boxShadow: '0 0 5px rgba(46, 204, 113, 0.3)' },
+                        },
+                        gradientXY: {
+                            '0%, 100%': { 'background-size': '400% 400%', 'background-position': '0% 0%' },
+                            '50%': { 'background-size': '400% 400%', 'background-position': '100% 100%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-<!-- ============================================================
-     FAVICON
-     Replace the href below with your own icon file once chosen.
-     e.g. <link rel="icon" type="image/png" href="favicon.png">
-     For now this uses a simple emoji-based favicon so the tab
-     isn't blank.
-============================================================= -->
-<link rel="icon" type="image" href="photo.jpg">
+    <style>
+        /* Custom Liquid Glass Effects */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 12px 40px 0 rgba(31, 84, 120, 0.12);
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        .glass-card {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(16px) saturate(160%);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px 0 rgba(31, 84, 120, 0.1);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
-     <main style="padding-top: 80px;">
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.55);
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 16px 48px 0 rgba(31, 84, 120, 0.2);
+            transform: translateY(-5px);
+        }
 
-     <!-- ================= FIXED TOP GLASS BANNER ================= -->
-<header style="
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 10vw);
-  max-width: 1000px;
-  height: 60px;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 999px;
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: 0 8px 32px rgba(31, 84, 120, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  pointer-events: auto;
-">
-  <!-- Brand Name -->
-  <span style="
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 1.35rem;
-    letter-spacing: 0.05em;
-    color: var(--accent-deep);
-    text-shadow: 0 2px 10px rgba(46, 134, 193, 0.15);
-  ">SUSHANT.</span>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            box-shadow: 0 10px 30px rgba(31, 84, 120, 0.12);
+        }
 
-  <!-- Glowing Live Status Dot -->
-  <div style="display: flex; align-items: center; gap: 8px;">
-    <span style="
-      width: 10px;
-      height: 10px;
-      background-color: #2ecc71;
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 10px #2ecc71, 0 0 4px #2ecc71;
-    "></span>
-    <span style="
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    ">Portfolio</span>
-  </div>
-</header>
-     
-<style>
-  :root{
-    --sky-top:#bfe4fb;
-    --sky-mid:#dff1fc;
-    --sky-bottom:#f3f9fd;
-    --glass-fill: rgba(255,255,255,0.28);
-    --glass-fill-strong: rgba(255,255,255,0.45);
-    --glass-border: rgba(255,255,255,0.55);
-    --accent:#2e86c1;
-    --accent-deep:#1b5f8c;
-    --ink:#173a4d;
-    --ink-soft:#3f6579;
-    --shadow: 0 8px 32px rgba(31,84,120,0.18);
-    --radius-lg: 28px;
-    --radius-md: 20px;
-  }
+        /* Waving Flag Animation */
+        @keyframes waveFlag {
+            0%, 100% { transform: rotate(0deg) skewY(0deg); }
+            25% { transform: rotate(4deg) skewY(2deg); }
+            75% { transform: rotate(-4deg) skewY(-2deg); }
+        }
+        .animate-wave-flag {
+            animation: waveFlag 2.5s ease-in-out infinite;
+            transform-origin: bottom left;
+        }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
+        /* Momo Wobble */
+        @keyframes momoWobble {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(-12deg) scale(1.15); }
+            30% { transform: rotate(12deg) scale(1.15); }
+            45% { transform: rotate(-8deg) scale(1.1); }
+            60% { transform: rotate(8deg) scale(1.1); }
+            75% { transform: rotate(-3deg) scale(1.05); }
+        }
+        .momo-btn:hover .momo-icon {
+            animation: momoWobble 0.8s ease-in-out infinite;
+        }
 
-  html{scroll-behavior:smooth;}
+        /* Ambient Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(40px);
+            opacity: 0.7;
+        }
 
-  body{
-    font-family:'Inter', sans-serif;
-    color:var(--ink);
-    min-height:100vh;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.6), transparent 40%),
-      radial-gradient(circle at 85% 10%, rgba(255,255,255,0.5), transparent 45%),
-      linear-gradient(160deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
-    overflow-x:hidden;
-    position:relative;
-  }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(223, 241, 252, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(46, 134, 193, 0.4);
+            border-radius: 999px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(27, 95, 140, 0.7);
+        }
 
-  /* ---------- Ambient floating glass bubbles ---------- */
-  .bubble{
-    position:fixed;
-    border-radius:50%;
-    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.05) 70%);
-    filter:blur(1px);
-    pointer-events:none;
-    z-index:0;
-    animation:drift 18s ease-in-out infinite;
-  }
-  .bubble.b1{width:220px; height:220px; top:8%; left:-60px; animation-duration:22s;}
-  .bubble.b2{width:140px; height:140px; top:60%; right:-40px; animation-duration:16s; animation-delay:-4s;}
-  .bubble.b3{width:90px; height:90px; top:30%; right:12%; animation-duration:14s; animation-delay:-8s;}
-  .bubble.b4{width:60px; height:60px; bottom:8%; left:8%; animation-duration:12s; animation-delay:-2s;}
-
-  @keyframes drift{
-    0%, 100%{ transform:translateY(0) translateX(0); }
-    50%{ transform:translateY(-30px) translateX(20px); }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .bubble{ animation:none; }
-    html{ scroll-behavior:auto; }
-  }
-
-  main{
-    position:relative;
-    z-index:1;
-    max-width:1000px;
-    margin:0 auto;
-    padding:6vh 5vw 10vh;
-    display:flex;
-    flex-direction:column;
-    gap:28px;
-  }
-
-  /* ---------- Glass card base ---------- */
-  .glass{
-    background:var(--glass-fill);
-    border:1px solid var(--glass-border);
-    border-radius:var(--radius-lg);
-    backdrop-filter:blur(18px) saturate(140%);
-    -webkit-backdrop-filter:blur(18px) saturate(140%);
-    box-shadow:var(--shadow);
-    position:relative;
-    overflow:hidden;
-  }
-  .glass::before{
-    content:"";
-    position:absolute;
-    top:0; left:0; right:0;
-    height:1px;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    text-align:center;
-    padding:8vh 6vw;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:14px;
-  }
-
-  .avatar-ring{
-    width:112px; height:112px;
-    border-radius:50%;
-    background:var(--glass-fill-strong);
-    border:1px solid var(--glass-border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:44px;
-    margin-bottom:6px;
-    overflow:hidden;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 6px 20px rgba(46,134,193,0.25);
-  }
-
-  .avatar-ring img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-  }
-
-  .hero h1{
-    font-family:'Outfit', sans-serif;
-    font-weight:800;
-    font-size:clamp(2.4rem, 6vw, 4rem);
-    letter-spacing:-0.02em;
-    color:var(--ink);
-  }
-
-  .hero .tag{
-    font-family:'Outfit', sans-serif;
-    font-weight:500;
-    font-size:clamp(1rem, 2.4vw, 1.25rem);
-    color:var(--accent-deep);
-    background:var(--glass-fill-strong);
-    border:1px solid var(--glass-border);
-    padding:8px 22px;
-    border-radius:999px;
-    display:inline-block;
-  }
-
-  .hero p.bio{
-    max-width:520px;
-    color:var(--ink-soft);
-    font-size:1rem;
-    line-height:1.6;
-    margin-top:4px;
-  }
-
-  /* ---------- Section headers ---------- */
-  .section-label{
-    font-family:'Outfit', sans-serif;
-    font-weight:600;
-    font-size:0.85rem;
-    text-transform:uppercase;
-    letter-spacing:0.12em;
-    color:var(--accent-deep);
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .section-label::after{
-    content:"";
-    flex:1;
-    height:1px;
-    background:linear-gradient(90deg, var(--glass-border), transparent);
-  }
-
-  /* ---------- Social bento grid ---------- */
-  .social-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
-    gap:16px;
-  }
-
-  .social-card{
-    padding:26px 16px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    color:var(--ink);
-    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  }
-  .social-card:hover, .social-card:focus-visible{
-    transform:translateY(-6px);
-    background:var(--glass-fill-strong);
-    box-shadow:0 14px 34px rgba(31,84,120,0.25);
-  }
-  .social-card:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-
-  .social-card svg{ width:30px; height:30px; fill:var(--accent-deep); }
-  .social-card span{ font-family:'Outfit', sans-serif; font-weight:600; font-size:0.9rem; }
-
-  /* ---------- Embed cards ---------- */
-  .embed-card{ padding:22px; }
-
-  .embed-card iframe{
-    width:100%;
-    border:none;
-    border-radius:var(--radius-md);
-    display:block;
-    background:rgba(255,255,255,0.5);
-  }
-
-  .blog-frame{ height:800px; }
-
-  .video-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-    gap:16px;
-  }
-  .video-frame-wrap{
-    position:relative;
-    width:100%;
-    padding-top:56.25%; /* 16:9 */
-    border-radius:var(--radius-md);
-    overflow:hidden;
-    box-shadow:0 6px 18px rgba(31,84,120,0.15);
-  }
-  .video-frame-wrap iframe{
-    position:absolute; top:0; left:0; width:100%; height:100%; border:none;
-  }
-
-  footer{
-    text-align:center;
-    color:var(--ink-soft);
-    font-size:0.85rem;
-    padding-top:10px;
-  }
-
-  @media (max-width:600px){
-    main{ padding:5vh 5vw 8vh; gap:20px; }
-    .hero{ padding:6vh 6vw; }
-    .blog-frame{ height:560px; }
-  }
-</style>
+        /* Dynamic Copy Toast */
+        #toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+    </style>
 </head>
-<body>
 
-<div class="bubble b1"></div>
-<div class="bubble b2"></div>
-<div class="bubble b3"></div>
-<div class="bubble b4"></div>
+<body class="font-inter text-inkDark bg-gradient-to-br from-[#bfe4fb] via-[#dff1fc] to-[#f3f9fd] min-h-screen relative overflow-x-hidden selection:bg-accentGlow selection:text-white">
 
-<main>
+    <!-- Ambient Floating Orbs -->
+    <div class="orb w-80 h-80 bg-blue-300 top-[-50px] left-[-50px] animate-float-slow"></div>
+    <div class="orb w-96 h-96 bg-sky-200 bottom-[10%] right-[-100px] animate-float-reverse"></div>
+    <div class="orb w-64 h-64 bg-indigo-200 top-[40%] left-[10%] animate-float-slow" style="animation-delay: -5s;"></div>
 
-  <!-- ================= HERO ================= -->
-  <section class="glass hero">
-    <div class="avatar-ring">
-      <!-- Save your photo as "photo.jpg" in the same folder as this HTML file
-           (or update the src below to match whatever filename you use) -->
-      <img src="photo.jpg" alt="Sushant">
-    </div>
-    <h1>Sushant Singh</h1>
-    <span class="tag">HUMAN :  STUDENT   </span>
-    <p class="bio">
-        Kathmandu, Nepal <br>
-
-         <!-- ================= EMAIL CONTACT ================= -->
-<section style="margin-top: 28px;">
-  <div class="section-label">Get in touch</div>
-  <style>
-    .email-card {
-      padding: 26px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      text-decoration: none;
-      color: var(--ink);
-      position: relative;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .email-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: var(--radius-lg);
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      background: radial-gradient(circle at center, rgba(66, 133, 244, 0.15), rgba(234, 67, 53, 0.15), rgba(251, 188, 5, 0.15), rgba(52, 168, 83, 0.15));
-      pointer-events: none;
-    }
-    .email-card:hover, .email-card:focus-visible {
-      transform: translateY(-6px);
-      border-color: rgba(66, 133, 244, 0.6);
-      box-shadow: 0 14px 34px rgba(66, 133, 244, 0.25), 0 0 20px rgba(234, 67, 53, 0.2), 0 0 20px rgba(52, 168, 83, 0.2);
-    }
-    .email-card:hover::after {
-      opacity: 1;
-    }
-    .email-card svg path.g-blue { fill: #4285F4; }
-    .email-card svg path.g-red { fill: #EA4335; }
-    .email-card svg path.g-yellow { fill: #FBBC05; }
-    .email-card svg path.g-green { fill: #34A853; }
-    .email-address {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      letter-spacing: -0.01em;
-    }
-  </style>
-
-  <!-- Replace 'your.email@gmail.com' with your actual email address -->
-  <a class="glass email-card" href="mailto:mail@sushantsingh.com.np">
-    <svg width="32" height="32" viewBox="0 0 24 24">
-      <path class="g-blue" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-      <path class="g-red" d="M12 13L4 8v10h16V8l-8 5z" opacity="0.3"/>
-      <path class="g-yellow" d="M4 6l8 5 8-5" opacity="0.2"/>
-      <path class="g-green" d="M20 18H4V8l8 5 8-5v10z" opacity="0.1"/>
-    </svg>
-    <span class="email-address">Mail</span>
-  </a>
-</section>
-    </p>
-  </section>
-
-  <!-- ================= SOCIAL LINKS ================= -->
-  <section>
-    <div class="section-label">Find me around the web</div>
-    <div class="glass" style="padding:20px;">
-      <div class="social-grid">
-
-        <a class="social-card" href="https://github.com/sush-builds" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.16.69-3.83-1.34-3.83-1.34-.52-1.32-1.26-1.67-1.26-1.67-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.74 2.65 1.24 3.3.95.1-.73.4-1.24.72-1.53-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16a10.9 10.9 0 0 1 5.72 0c2.18-1.47 3.14-1.16 3.14-1.16.62 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .3.2.66.79.55A11.26 11.26 0 0 0 23.25 11.75C23.25 5.48 18.27.5 12 .5Z"/></svg>
-          <span>GitHub</span>
-        </a>
-
-        <a class="social-card" href="https://youtube.com/@wtfvck.sushant" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.95-1.91-.95-2.37-1.01C16.9 2.5 12 2.5 12 2.5h-.01s-4.9 0-8.19.33c-.46.06-1.47.06-2.37 1.01C.72 4.56.5 6.2.5 6.2S.26 8.13.26 10.05v1.89c0 1.93.24 3.85.24 3.85s.23 1.64.94 2.36c.9.96 2.08.93 2.6 1.03 1.9.18 8.06.33 8.06.33s4.9-.01 8.19-.33c.46-.06 1.47-.06 2.37-1.02.71-.72.94-2.36.94-2.36s.24-1.93.24-3.85v-1.89c0-1.93-.24-3.85-.24-3.85ZM9.75 14.98V7.62l6.5 3.69-6.5 3.67Z"/></svg>
-          <span>YouTube</span>
-        </a>
-
-        <a class="social-card" href="https://instagram.com/sushanttt.singh" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.46A4.38 4.38 0 1 0 12 16.38 4.38 4.38 0 0 0 12 7.62Zm0 7.22a2.84 2.84 0 1 1 0-5.68 2.84 2.84 0 0 1 0 5.68Zm4.55-7.4a1.02 1.02 0 1 1 0-2.04 1.02 1.02 0 0 1 0 2.04Z"/></svg>
-          <span>Instagram</span>
-        </a>
-
-        <a class="social-card" href="https://www.linkedin.com/in/sushanttt-singh/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
-          <span>LinkedIn</span>
-        </a>
-
-        <a class="social-card" href="https://facebook.com/sushanttt.singh" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M23 12.06C23 5.94 18.07 1 12 1S1 5.94 1 12.06c0 5.53 4.05 10.11 9.34 10.94v-7.74H7.9v-3.2h2.44V9.85c0-2.42 1.44-3.76 3.64-3.76 1.06 0 2.16.19 2.16.19v2.38h-1.22c-1.2 0-1.57.75-1.57 1.52v1.82h2.68l-.43 3.2h-2.25v7.74C18.95 22.17 23 17.59 23 12.06Z"/></svg>
-          <span>Facebook</span>
-        </a>
-
-        <a class="social-card" href="https://tiktok.com/@sushanttt.singh" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M16.6 2h-3.3v14.2a2.9 2.9 0 1 1-2.06-2.78V9.98a6.1 6.1 0 1 0 5.36 6.06V8.62a7.5 7.5 0 0 0 4.4 1.42V6.7a4.2 4.2 0 0 1-4.4-4.2Z"/></svg>
-          <span>TikTok</span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= BLOGGER EMBED ================= -->
-  <section>
-    <div class="section-label">From the blog</div>
-    <div class="glass embed-card">
-      <iframe class="blog-frame"
-        src="https://lifeofsushanttt.blogspot.com/"
-        title="My Blogger site" loading="lazy">
-      </iframe>
-    </div>
-  </section>
-
-
-     
-
-  <!-- ================= YOUTUBE VIDEOS ================= -->
-  <section>
-    <div class="section-label">Latest videos</div>
-    <div class="glass embed-card">
-      <div class="video-grid">
-        <div class="video-frame-wrap">
-          <iframe src="https://www.youtube.com/embed/V_ob7uIgeCM" title="Video 1" loading="lazy" allowfullscreen></iframe>
+    <!-- Floating Top Navigation Header -->
+    <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl h-16 z-50 glass-nav rounded-full px-4 sm:px-6 flex items-center justify-between transition-all duration-300">
+        <div class="flex items-center gap-3">
+            <span class="font-outfit font-black text-xl tracking-wider text-accentDeep drop-shadow-sm">SUSHANT.</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-white/50 text-accentDeep border border-white/60 hidden lg:inline-block">v2.1</span>
         </div>
-        <div class="video-frame-wrap">
-          <iframe src="https://www.youtube.com/embed/xDTvA1ADA_Y" title="Video 2" loading="lazy" allowfullscreen></iframe>
+
+        <!-- Dynamic Live Status, Nepal Flag & Live Time -->
+        <div class="flex items-center gap-2 sm:gap-3 bg-white/40 border border-white/60 px-3 py-1.5 rounded-full shadow-inner">
+            <!-- Glowing Live Dot -->
+            <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse-glow"></span>
+                <span class="font-outfit font-bold text-xs text-inkDark uppercase tracking-wider hidden sm:inline-block">Live</span>
+            </div>
+
+            <span class="text-white/60 hidden sm:inline">•</span>
+
+            <!-- Waving Nepal Flag -->
+            <div class="inline-flex items-center text-lg leading-none animate-wave-flag" title="Nepal 🇳🇵">
+                🇳🇵
+            </div>
+
+            <span class="text-white/60">•</span>
+
+            <!-- Live Date & Time -->
+            <div class="font-mono text-xs font-semibold text-accentDeep flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-accentGlow hidden xs:inline"></i>
+                <span id="liveClock">--:--:--</span>
+            </div>
         </div>
-        <div class="video-frame-wrap">
-          <iframe src="https://www.youtube.com/embed/SDDyy--drjk" title="Video 3" loading="lazy" allowfullscreen></iframe>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+            <!-- Buy Me Momo Button -->
+            <a href="https://www.buymemomo.com/sushantsingh" target="_blank" rel="noopener" class="momo-btn px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-inkDark font-outfit font-bold text-xs sm:text-sm shadow-md hover:shadow-orange-300/50 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-1.5 border border-amber-200">
+                <span class="momo-icon text-base inline-block">🥟</span>
+                <span class="hidden sm:inline">Buy me Momo</span>
+            </a>
+
+            <!-- Copy Mail Icon -->
+            <button id="copyMailBtn" onclick="copyEmail('mail@sushantsingh.com.np')" class="p-2 rounded-full bg-white/60 hover:bg-white text-accentDeep transition-all duration-200 shadow-sm hover:scale-105 active:scale-95" title="Copy Email">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+            </button>
         </div>
-      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="relative z-10 max-w-4xl mx-auto px-4 pt-28 pb-20 flex flex-col gap-8">
+
+        <!-- ================= HERO SECTION ================= -->
+        <section id="about" class="glass-panel rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden flex flex-col items-center gap-6">
+            <!-- Subtle Top Highlight Line -->
+            <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/90 to-transparent"></div>
+
+            <!-- Profile Avatar Ring with Hover Pulse -->
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-sky-400 to-indigo-400 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
+                <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1 bg-white/60 border border-white shadow-xl overflow-hidden flex items-center justify-center">
+                    <img id="avatarImg" src="photo.jpg" onerror="this.src='https://placehold.co/300x300/1b5f8c/ffffff?text=Sushant'" alt="Sushant Singh" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition duration-500">
+                </div>
+            </div>
+
+            <!-- Header Info -->
+            <div class="space-y-3">
+                <h1 class="font-outfit font-black text-4xl sm:text-6xl tracking-tight text-inkDark">
+                    Sushant Singh
+                </h1>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/50 border border-white/80 font-outfit font-semibold text-sm text-accentDeep shadow-sm">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+                    <span>HUMAN : STUDENT</span>
+                </div>
+            </div>
+
+            <!-- Location & Tag -->
+            <p class="font-outfit font-medium text-inkSoft text-base sm:text-lg max-w-lg flex items-center justify-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-red-500"></i>
+                <span>Kathmandu, Nepal</span>
+            </p>
+
+            <!-- Bio Card -->
+            <p class="text-inkSoft text-sm sm:text-base leading-relaxed max-w-xl font-inter bg-white/30 p-4 sm:p-6 rounded-2xl border border-white/50 shadow-inner">
+                Passionate creator, student, and tech enthusiast based in Nepal. Crafting digital vibes, sharing experiences through blog posts, and documenting moments on YouTube.
+            </p>
+
+            <!-- Direct Quick Action Email Bar -->
+            <div class="w-full max-w-md pt-2 flex flex-col gap-3">
+                <div class="glass-card rounded-2xl p-3 flex items-center justify-between gap-3 border border-white/80 shadow-md hover:shadow-lg transition-all duration-300 group">
+                    <div class="flex items-center gap-3 overflow-hidden pl-2">
+                        <div class="p-2.5 rounded-xl bg-gradient-to-br from-blue-500 to-sky-600 text-white shadow-sm group-hover:rotate-6 transition-transform">
+                            <i data-lucide="mail-check" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-outfit font-bold text-sm sm:text-base text-inkDark truncate" id="emailText">mail@sushantsingh.com.np</span>
+                    </div>
+                    <button onclick="copyEmail('mail@sushantsingh.com.np')" class="px-4 py-2 rounded-xl bg-accentDeep text-white text-xs sm:text-sm font-outfit font-semibold shadow hover:bg-accentGlow active:scale-95 transition duration-200 flex items-center gap-1.5 whitespace-nowrap">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+
+                <!-- Featured Momo Support Banner -->
+                <a href="https://www.buymemomo.com/sushantsingh" target="_blank" rel="noopener" class="momo-btn glass-card rounded-2xl p-3.5 flex items-center justify-between gap-3 border border-amber-300/80 bg-gradient-to-r from-amber-100/60 to-orange-100/60 shadow-md hover:shadow-amber-200/60 transition-all duration-300 group text-left">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md momo-icon text-xl">
+                            🥟
+                        </div>
+                        <div>
+                            <div class="font-outfit font-bold text-sm text-inkDark group-hover:text-amber-800 transition">Support Sushant's Work</div>
+                            <div class="text-xs text-inkSoft font-medium">buymemomo.com/sushantsingh</div>
+                        </div>
+                    </div>
+                    <div class="px-3 py-1.5 rounded-xl bg-amber-500 text-white font-outfit font-bold text-xs flex items-center gap-1 shadow-sm group-hover:bg-amber-600">
+                        <span>Treat Momo</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+
+        <!-- ================= BENTO SOCIAL GRID ================= -->
+        <section id="socials" class="space-y-4">
+            <div class="flex items-center gap-3">
+                <h2 class="font-outfit font-bold text-xs uppercase tracking-widest text-accentDeep">Connect & Follow</h2>
+                <div class="h-[1px] flex-1 bg-gradient-to-r from-white/80 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                
+                <!-- GitHub -->
+                <a href="https://github.com/sush-builds" target="_blank" rel="noopener" class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-3 group text-center">
+                    <div class="p-3 rounded-2xl bg-gray-900 text-white shadow-md group-hover:scale-110 transition duration-300">
+                        <i data-lucide="github" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="font-outfit font-bold text-base text-inkDark group-hover:text-accentDeep transition">GitHub</div>
+                        <div class="text-xs font-mono text-inkSoft opacity-75">@sush-builds</div>
+                    </div>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtube.com/@wtfvck.sushant" target="_blank" rel="noopener" class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-3 group text-center">
+                    <div class="p-3 rounded-2xl bg-red-600 text-white shadow-md group-hover:scale-110 transition duration-300">
+                        <i data-lucide="youtube" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="font-outfit font-bold text-base text-inkDark group-hover:text-red-600 transition">YouTube</div>
+                        <div class="text-xs font-mono text-inkSoft opacity-75">@wtfvck.sushant</div>
+                    </div>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/sushanttt.singh" target="_blank" rel="noopener" class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-3 group text-center">
+                    <div class="p-3 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white shadow-md group-hover:scale-110 transition duration-300">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="font-outfit font-bold text-base text-inkDark group-hover:text-pink-600 transition">Instagram</div>
+                        <div class="text-xs font-mono text-inkSoft opacity-75">@sushanttt.singh</div>
+                    </div>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/sushanttt-singh/" target="_blank" rel="noopener" class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-3 group text-center">
+                    <div class="p-3 rounded-2xl bg-blue-700 text-white shadow-md group-hover:scale-110 transition duration-300">
+                        <i data-lucide="linkedin" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="font-outfit font-bold text-base text-inkDark group-hover:text-blue-700 transition">LinkedIn</div>
+                        <div class="text-xs font-mono text-inkSoft opacity-75">Sushant Singh</div>
+                    </div>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://facebook.com/sushanttt.singh" target="_blank" rel="noopener" class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-3 group text-center">
+                    <div class="p-3 rounded-2xl bg-blue-600 text-white shadow-md group-hover:scale-110 transition duration-300">
+                        <i data-lucide="facebook" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="font-outfit font-bold text-base text-inkDark group-hover:text-blue-600 transition">Facebook</div>
+                        <div class="text-xs font-mono text-inkSoft opacity-75">@sushanttt.singh</div>
+                    </div>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@sushanttt.singh" target="_blank" rel="noopener" class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-3 group text-center">
+                    <div class="p-3 rounded-2xl bg-black text-white shadow-md group-hover:scale-110 transition duration-300">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M16.6 2h-3.3v14.2a2.9 2.9 0 1 1-2.06-2.78V9.98a6.1 6.1 0 1 0 5.36 6.06V8.62a7.5 7.5 0 0 0 4.4 1.42V6.7a4.2 4.2 0 0 1-4.4-4.2Z"/></svg>
+                    </div>
+                    <div>
+                        <div class="font-outfit font-bold text-base text-inkDark group-hover:text-slate-900 transition">TikTok</div>
+                        <div class="text-xs font-mono text-inkSoft opacity-75">@sushanttt.singh</div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+
+        <!-- ================= YOUTUBE VIDEO GALLERY ================= -->
+        <section id="videos" class="space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 flex-1">
+                    <h2 class="font-outfit font-bold text-xs uppercase tracking-widest text-accentDeep">Latest Videos</h2>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-white/80 to-transparent"></div>
+                </div>
+                <a href="https://youtube.com/@wtfvck.sushant" target="_blank" class="text-xs font-outfit font-semibold text-accentDeep hover:underline flex items-center gap-1">
+                    <span>View Channel</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+
+            <div class="glass-panel p-4 sm:p-6 rounded-3xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    
+                    <!-- Video 1 -->
+                    <div class="space-y-2 group">
+                        <div class="relative aspect-video rounded-2xl overflow-hidden border border-white/60 shadow-md bg-black/10">
+                            <iframe class="w-full h-full rounded-2xl" src="https://www.youtube.com/embed/V_ob7uIgeCM" title="YouTube video player 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Video 2 -->
+                    <div class="space-y-2 group">
+                        <div class="relative aspect-video rounded-2xl overflow-hidden border border-white/60 shadow-md bg-black/10">
+                            <iframe class="w-full h-full rounded-2xl" src="https://www.youtube.com/embed/xDTvA1ADA_Y" title="YouTube video player 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Video 3 -->
+                    <div class="space-y-2 group">
+                        <div class="relative aspect-video rounded-2xl overflow-hidden border border-white/60 shadow-md bg-black/10">
+                            <iframe class="w-full h-full rounded-2xl" src="https://www.youtube.com/embed/SDDyy--drjk" title="YouTube video player 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BLOG EMBED SECTION ================= -->
+        <section id="blog" class="space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 flex-1">
+                    <h2 class="font-outfit font-bold text-xs uppercase tracking-widest text-accentDeep">From The Blog</h2>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-white/80 to-transparent"></div>
+                </div>
+                <a href="https://lifeofsushanttt.blogspot.com/" target="_blank" class="text-xs font-outfit font-semibold text-accentDeep hover:underline flex items-center gap-1">
+                    <span>Open Blog</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+
+            <div class="glass-panel p-3 sm:p-5 rounded-3xl relative overflow-hidden">
+                <div class="w-full h-[600px] rounded-2xl overflow-hidden border border-white/70 bg-white/40 shadow-inner">
+                    <iframe src="https://lifeofsushanttt.blogspot.com/" class="w-full h-full border-0 rounded-2xl" title="Life of Sushant Blog" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+        <footer class="pt-8 pb-4 text-center space-y-3 border-t border-white/40">
+            <p class="font-outfit font-medium text-sm text-inkSoft">
+                &copy; <span id="year"></span> Sushant Singh. Built with Glassmorphism Vibes.
+            </p>
+            <p class="text-xs font-mono text-inkSoft/70">
+                Kathmandu, Nepal • Student & Creator
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Toast Notification for Copy -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl bg-inkDark/90 backdrop-blur-md text-white font-outfit text-sm shadow-2xl opacity-0 pointer-events-none translate-y-4 z-50 flex items-center gap-2 border border-white/20">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toastMsg">Copied to clipboard!</span>
     </div>
-  </section>
 
-     <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a1bc68933b64c1c2ac907cc/1jpu7v2tn';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
- 
-  <a href="https://buymemomo.com/sushantsingh" target="_blank" rel="noopener"
-   style="
-     position:fixed;
-     bottom:24px;
-     left:24px;
-     z-index:999;
-     display:inline-flex;
-     align-items:center;
-     gap:8px;
-     font-family:'Outfit', sans-serif;
-     font-weight:700;
-     font-size:0.95rem;
-     color:#fff;
-     background:linear-gradient(135deg, #2e86c1, #1b5f8c);
-     padding:13px 22px;
-     border-radius:999px;
-     text-decoration:none;
-     box-shadow:0 10px 26px rgba(46,134,193,0.4);
-     transition:transform 0.25s ease, box-shadow 0.25s ease;
-   "
-   onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 14px 32px rgba(46,134,193,0.5)';"
-   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 26px rgba(46,134,193,0.4)';">
-  🥟 Buy me a momo
-</a>
+    <!-- Tawk.to Live Chat Script Integration -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a1bc68933b64c1c2ac907cc/1jpu7v2tn';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
 
-  <footer>
-    &copy; <span id="year"></span> Sushant Singh.
-  </footer>
+    <!-- App Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-</main>
+        // Set current dynamic year
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+        // Live Clock Functionality
+        function updateClock() {
+            const now = new Date();
+            const options = { 
+                timeZone: 'Asia/Kathmandu',
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                day: 'numeric',
+                month: 'short'
+            };
+            const formatted = new Intl.DateTimeFormat('en-US', options).format(now);
+            document.getElementById('liveClock').textContent = formatted;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
 
+        // Clipboard Copy Helper
+        function copyEmail(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showToast).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Fallback copy failed', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            }, 2500);
+        }
+    </script>
 </body>
 </html>
